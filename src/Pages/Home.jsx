@@ -1,6 +1,10 @@
+
+import Courses from '../components/Courses/Courses';
+import '../styles/home.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../styles/home.css';
+
+
 
 export default function Home() {
   const [directions, setDirections] = useState([]);
@@ -31,25 +35,18 @@ export default function Home() {
       <div className='course_navigation'>
         <h1 className='activeItemNavigation'>{navigationItem}</h1>
         <nav className='courses-container'>
-          {directions.map((item) => {
-            // Проверяем наличие id, если нет - создаем уникальный ключ
-            const uniqueKey = item.id || `${item.title}_${Math.random().toString(36).substr(2, 9)}`;
-            
-            return (
-              <a
-                className={`course-card ${navigationItem === item.title ? 'active-course' : ''}`}
-                key={uniqueKey} // Уникальный ключ
-                onClick={() => setNavigationItem(item.title)}
-              >
-                {item.title}
-              </a>
-            );
-          })}
+          {directions.map((item) => (
+            <a
+              className={`course-card ${navigationItem === item.title ? 'active-course' : ''}`}
+              key={item.id || item._id} // Уникальный ключ из данных
+              onClick={() => setNavigationItem(item.title)}
+            >
+              {item.title}
+            </a>
+          ))}
         </nav>
       </div>
-      <div>
-        {/* Здесь можно отображать контент выбранного направления */}
-      </div>
+      <Courses directions={directions} />
     </div>
   );
 }

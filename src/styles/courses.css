@@ -1,0 +1,80 @@
+.content-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  
+  .filters-panel {
+    width: 250px;
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .filters-panel h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .filter-group {
+    margin: 15px 0;
+  }
+  
+  .topics-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .topic-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .courses-panel {
+    flex: 1;
+  }
+  
+  .profession-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .profession-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    transition: transform 0.2s;
+  }
+  
+  .profession-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .popular-badge {
+    background: #ff6b6b;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .card-duration {
+    color: #666;
+    margin: 10px 0;
+  }
+  
+  .card-type {
+    font-weight: bold;
+    color: #4f46e5;
+  }
