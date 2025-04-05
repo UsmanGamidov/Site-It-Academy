@@ -3,7 +3,6 @@
     justify-content: center;
     align-items: center;
     min-height: 90vh;
-    background-color: #f5f5f5;
     padding: 20px;
 }
 
@@ -43,7 +42,7 @@
 }
 
 .form-group input {
-    width: 100%;
+    width: 92%;
     padding: 12px 15px;
     border: 1px solid #ddd;
     border-radius: 6px;
@@ -127,15 +126,4 @@
 
 .register-link a:hover {
     text-decoration: underline;
-}
-
-/* Адаптивность */
-@media (max-width: 480px) {
-    .login-container {
-        padding: 30px 20px;
-    }
-
-    .form-group input {
-        padding: 10px 12px;
-    }
 }

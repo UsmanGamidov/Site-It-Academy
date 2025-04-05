@@ -1,4 +1,3 @@
-  
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/home.css';
@@ -23,24 +22,29 @@ export default function Home() {
     }; 
     fetchDirections();
   }, []);
-// @jsx-ignore
+
   if (error) return <div className="body_home">Ошибка: {error}</div>;
   if (directions.length === 0) return <div className="body_home">Нет доступных направлений</div>;
 
   return (
     <div className='body_home'>
-      <div className='course_navigation'> {/* Исправлено сourse_navigation на course_navigation */}
+      <div className='course_navigation'>
         <h1 className='activeItemNavigation'>{navigationItem}</h1>
-        <nav className="courses-container">
-          {directions.map((item) => (
-            <a
-              className={`course-card ${navigationItem === item.title ? 'active-course' : ''}`}
-              key={item.id}
-              onClick={() => setNavigationItem(item.title)}
-            >
-              {item.title}
-            </a>
-          ))}
+        <nav className='courses-container'>
+          {directions.map((item) => {
+            // Проверяем наличие id, если нет - создаем уникальный ключ
+            const uniqueKey = item.id || `${item.title}_${Math.random().toString(36).substr(2, 9)}`;
+            
+            return (
+              <a
+                className={`course-card ${navigationItem === item.title ? 'active-course' : ''}`}
+                key={uniqueKey} // Уникальный ключ
+                onClick={() => setNavigationItem(item.title)}
+              >
+                {item.title}
+              </a>
+            );
+          })}
         </nav>
       </div>
       <div>

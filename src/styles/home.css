@@ -1,6 +1,5 @@
 .body_home {
     max-width: 1200px;
-
     background-color: white;
     position: relative;
     top: 162px;
@@ -14,18 +13,6 @@
 }
 
 
-.header {
-    margin-right: 10%;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
 .courses-container {
     width: 90%;
     display: grid;
@@ -36,11 +23,11 @@
 
 .course-card {
     padding: 12px 24px;
-    background: #f0f0f0;
+    background: #f8f6f6b6;
     border-radius: 8px;
     text-decoration: none;
     color: #333;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
 }
 
