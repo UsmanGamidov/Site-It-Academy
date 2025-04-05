@@ -1,0 +1,17 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.fullscreen-block {
+    display: flex;
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+    height: 70vh; /* 100% высоты viewport */
+}
+
+.fullscreen-block h1 {
+    font-size: 3em; /* Размер шрифта */
+    color: rgb(0, 0, 0);
+    text-align: center;
+}

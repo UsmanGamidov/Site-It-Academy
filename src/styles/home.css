@@ -1,0 +1,102 @@
+.body_home {
+    max-width: 1200px;
+
+    background-color: white;
+    position: relative;
+    top: 162px;
+}
+
+.activeItemNavigation {
+    margin-left: 20px;
+    font-weight: 900;
+    text-align: left;
+    font-size: 60px;
+}
+
+
+.header {
+    margin-right: 10%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.courses-container {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    padding: 20px;
+}
+
+.course-card {
+    padding: 12px 24px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.course-card:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.course-card.active-course {
+    background-color: #e0e0e0;
+    /* Серый цвет */
+    color: #333;
+    /* Цвет текста */
+    font-weight: bolder;
+    /* Жирный шрифт */
+    transform: scale(1.05);
+
+    transition: all 0.3s ease;
+
+}
+
+.activeItemNavigation {
+    font-weight: 900;
+    text-align: left;
+    /* Начальный размер шрифта */
+    font-size: clamp(24px, 5vw, 60px);
+    /* Минимум 24px, максимум 60px, адаптивно 5% от ширины viewport */
+    line-height: 1.2;
+    /* Оптимальный межстрочный интервал */
+    transition: font-size 0.3s ease;
+    /* Плавное изменение размера */
+    white-space: nowrap;
+    /* Запрет переноса на новую строку */
+    overflow: hidden;
+    /* Обрезаем текст если не помещается */
+    text-overflow: ellipsis;
+    /* Многоточие если текст обрезан */
+}
+
+/* Альтернатива с медиазапросами */
+@media (max-width: 1200px) {
+    .activeItemNavigation {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 768px) {
+    .activeItemNavigation {
+        font-size: 36px;
+        white-space: normal;
+        /* Разрешаем перенос на мобильных */
+    }
+}
+
+@media (max-width: 480px) {
+    .activeItemNavigation {
+        font-size: 28px;
+    }
+}
