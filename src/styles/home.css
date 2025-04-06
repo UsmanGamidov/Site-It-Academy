@@ -1,104 +1,101 @@
 .body_home {
     max-width: 1200px;
+    margin: 0 auto;
+    padding: 160px 20px 20px;
     background-color: white;
-    position: relative;
-    top: 120px;
-    left: 30px
 }
 
 .activeItemNavigation {
-    margin-left: 30px;
+    margin: 0 0 20px 10px;
     font-weight: 900;
     text-align: left;
-    font-size: 60px;
+    font-size: clamp(24px, 5vw, 60px);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-
 .courses-container {
-    width: 90%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px , 1fr));
-    gap: 16px;
-    margin-right: 30px;
-    margin-left: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    padding: 0 10px;
 }
 
 .course-card {
-    padding: 12px 24px;
+    padding: 12px;
     background: #f8f6f6b6;
     border-radius: 8px;
     text-decoration: none;
     color: #333;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    word-break: break-word;
 }
 
 .course-card:hover {
     background: #e0e0e0;
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .course-card.active-course {
     background-color: #e0e0e0;
-    /* Серый цвет */
     color: #333;
-    /* Цвет текста */
     font-weight: bolder;
-    /* Жирный шрифт */
-    transform: scale(1.05);
-
-    transition: all 0.3s ease;
-
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.activeItemNavigation {
-    font-weight: 900;
-    text-align: left;
-    /* Начальный размер шрифта */
-    font-size: clamp(24px, 5vw, 60px);
-    /* Минимум 24px, максимум 60px, адаптивно 5% от ширины viewport */
-    line-height: 1.2;
-    /* Оптимальный межстрочный интервал */
-    transition: font-size 0.3s ease;
-    /* Плавное изменение размера */
-    white-space: nowrap;
-    /* Запрет переноса на новую строку */
-    overflow: hidden;
-    /* Обрезаем текст если не помещается */
-    text-overflow: ellipsis;
-    /* Многоточие если текст обрезан */
-}
-
-/* Альтернатива с медиазапросами */
-@media (max-width: 1200px) {
-    .activeItemNavigation {
-        font-size: 48px;
-    }
-
-    .body_home {
-        top: 100px;
-    }
-}
-
-@media (max-width: 768px) {
-    .activeItemNavigation {
-        font-size: 36px;
-        white-space: normal;
-        /* Разрешаем перенос на мобильных */
-    }
-
-    .body_home {
-        top: 80px;
-    }
-}
-
+/* Адаптация для очень маленьких экранов */
 @media (max-width: 480px) {
-    .activeItemNavigation {
-        font-size: 28px;
-    }
-
     .body_home {
-        top: 60px;
+        padding-top: 90px;
     }
+    
+    .courses-container {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
+    }
+    
+    .course-card {
+        padding: 8px;
+        font-size: 14px;
+        min-height: 50px;
+    }
+    
+    .activeItemNavigation {
+        font-size: 24px;
+        white-space: normal;
+        margin-bottom: 15px;
+    }
+}
 
+/* Адаптация для вертикальной ориентации на мобильных */
+@media (max-width: 360px) and (orientation: portrait) {
+    .courses-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .course-card {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+/* Для ландшафтной ориентации на мобильных */
+@media (max-width: 640px) and (orientation: landscape) {
+    .courses-container {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .course-card {
+        font-size: 12px;
+        min-height: 40px;
+    }
 }
