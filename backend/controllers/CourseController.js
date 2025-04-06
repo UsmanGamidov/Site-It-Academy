@@ -95,7 +95,7 @@ export const update = async (req, res) => {
             _id: courseId
         }, {
             title: req.body.title,
-            description: req.body.title,
+            description: req.body.description,
             courseTime: req.body.courseTime,
             grade: req.body.grade,
             popular: req.body.popular,

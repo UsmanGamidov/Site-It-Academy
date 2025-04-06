@@ -4,46 +4,36 @@ import axios from 'axios';
 
 export default function Courses() {
   const [directions, setDirections] = useState([]);
-  const [isMobile, setIsMobile] = useState(false);
+  const [courses, setCourses] = useState([]);
   const [activeDirection, setActiveDirection] = useState(null);
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [filters, setFilters] = useState({
-    search: '',
-    sortBy: 'default'
-  });
-
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
-
-    return () => window.removeEventListener('resize', checkIfMobile);
-  }, []);
+  const [filters, setFilters] = useState({ search: '', sortBy: 'default' });
 
   useEffect(() => {
     const fetchDirections = async () => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
-        const { data } = await axios.get('http://localhost:3001/directions');
-        
-        if (!data || !Array.isArray(data)) {
-          throw new Error('Некорректный формат данных');
-        }
+        const directionsResponse = await axios.get('http://localhost:3001/directions');
+        const coursesResponse = await axios.get('http://localhost:3001/courses');
 
-        const dataWithIds = data.map((item, index) => ({
+        const dataDirections = directionsResponse.data || [];
+        const dataCourses = coursesResponse.data || [];
+
+        const dataDirectionsWithIds = dataDirections.map((item, index) => ({
           ...item,
           id: item.id || item._id || `gen-${Date.now()}-${index}`
         }));
 
-        setDirections(dataWithIds);
-        setActiveDirection(dataWithIds[0] || null);
-      } catch (err) {
-        console.error('Ошибка загрузки:', err);
-        setError(err.response?.data?.message || err.message || 'Ошибка сервера');
+        const dataCoursesWithIds = dataCourses.map((item, index) => ({
+          ...item,
+          id: item.id || item._id || `gen-${Date.now()}-${index}`
+        }));
+
+        setDirections(dataDirectionsWithIds);
+        setCourses(dataCoursesWithIds);
+        setActiveDirection(dataDirectionsWithIds[0] || null);
+      } catch (error) {
+        console.error('Ошибка при загрузке данных:', error);
       } finally {
         setIsLoading(false);
       }
@@ -53,33 +43,29 @@ export default function Courses() {
   }, []);
 
   const filteredDirections = directions
-    .filter(direction => {
-      const searchTerm = filters.search.toLowerCase();
-      return searchTerm 
-        ? direction.title.toLowerCase().includes(searchTerm) ||
-          (direction.description && direction.description.toLowerCase().includes(searchTerm))
-        : true;
-    })
+    .filter(direction => direction.title.toLowerCase().includes(filters.search.toLowerCase()))
     .sort((a, b) => {
-      switch (filters.sortBy) {
-        case 'name-asc': return a.title.localeCompare(b.title);
-        case 'name-desc': return b.title.localeCompare(a.title);
-        case 'duration-asc': return (a.duration || 0) - (b.duration || 0);
-        case 'duration-desc': return (b.duration || 0) - (a.duration || 0);
-        default: return 0;
-      }
+      if (filters.sortBy === 'name-asc') return a.title.localeCompare(b.title);
+      if (filters.sortBy === 'name-desc') return b.title.localeCompare(a.title);
+      return 0;
+    });
+
+  const filteredCourses = courses
+    .filter(course => course.title.toLowerCase().includes(filters.search.toLowerCase()))
+    .sort((a, b) => {
+      if (filters.sortBy === 'name-asc') return a.title.localeCompare(b.title);
+      if (filters.sortBy === 'name-desc') return b.title.localeCompare(a.title);
+      return 0;
     });
 
   if (isLoading) return <div className="body_home loading">Загрузка...</div>;
-  if (error) return <div className="body_home error">Ошибка: {error}</div>;
-  if (!directions.length) return <div className="body_home">Нет доступных направлений</div>;
 
   return (
-    <div className={`body_home ${isMobile ? 'mobile-view' : ''}`}>
+    <div className="body_home">
       <div className='course_navigation'>
-        <h1 className='activeItemNavigation'>{'Выберите направление'}</h1>
+        <h1>Выберите направление</h1>
         <nav className='courses-container'>
-          {directions.map((item) => (
+          {directions.map(item => (
             <button
               type="button"
               className={`course-card ${activeDirection?.id === item.id ? 'active-course' : ''}`}
@@ -96,54 +82,35 @@ export default function Courses() {
         <div className="search-sort-container">
           <input
             type="search"
-            placeholder={isMobile ? "Поиск..." : "Поиск по названию курса..."}
+            placeholder="Поиск по названию курса..."
             value={filters.search}
-            onChange={(e) => setFilters({...filters, search: e.target.value})}
+            onChange={(e) => setFilters({ ...filters, search: e.target.value })}
             className="search-input"
           />
-
           <select
             value={filters.sortBy}
-            onChange={(e) => setFilters({...filters, sortBy: e.target.value})}
+            onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}
             className="sort-select"
           >
-            <option value="default">{isMobile ? "Сортировка" : "Сортировать по"}</option>
-            <option value="name-asc">{isMobile ? "А-Я" : "Названию (А-Я)"}</option>
-            <option value="name-desc">{isMobile ? "Я-А" : "Названию (Я-А)"}</option>
-            <option value="duration-asc">{isMobile ? "Короткие" : "Длительности (короткие)"}</option>
-            <option value="duration-desc">{isMobile ? "Длинные" : "Длительности (длинные)"}</option>
+            <option value="default">Сортировка</option>
+            <option value="name-asc">А-Я</option>
+            <option value="name-desc">Я-А</option>
           </select>
         </div>
       </div>
 
       <div className="courses-main-content">
-        <h1 className='courses-main-title'>{activeDirection?.title || 'Все направления'}</h1>
-
+        <h1>{activeDirection?.title || 'Все направления'}</h1>
         <div className="profession-cards-container">
-          {filteredDirections.length > 0 ? (
-            filteredDirections.map(direction => (
-              <div 
-                key={direction.id}
-                className="profession-card"
-              >
-                <div className="card-header">
-                  <h3>{direction.title}</h3>
-                  {direction.isPopular && <span className="popular-badge">Популярное</span>}
-                </div>
-                <div className="card-duration">{direction.duration} месяцев</div>
-                <div className="card-type">{direction.type}</div>
+          {filteredCourses.length > 0 ? (
+            filteredCourses.map(course => (
+              <div key={course.id} className="profession-card">
+                <h3>{course.title}</h3>
+                <div>{course.courseTime} месяцев</div>
               </div>
             ))
           ) : (
-            <div className="no-results">
-              <p>Ничего не найдено</p>
-              <button 
-                onClick={() => setFilters({...filters, search: ''})}
-                className="reset-filters"
-              >
-                Сбросить фильтры
-              </button>
-            </div>
+            <div className="no-results">Ничего не найдено</div>
           )}
         </div>
       </div>
