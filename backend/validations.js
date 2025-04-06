@@ -17,3 +17,14 @@ export const direction = [
     body('title').isLength({min: 5}).isString(),
     body('tags').isLength().isString(),
 ]
+
+export const course = [
+    body('title'),
+    body('description'),
+    body('courseTime'),
+    body('grade'),
+    body('popular'),
+    body('popular'),
+    body('tags'),
+    body('imageUrl'),
+]
