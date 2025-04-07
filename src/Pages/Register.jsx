@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/register.css';
 
 export default function Register() {
+  const location = useLocation();
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -62,7 +64,7 @@ export default function Register() {
         password: formData.password
       });
 
-      navigate('/login', { state: { successRegister: true } });
+      navigate('/login', { state: { successRegister: true, redirectAfterLogin: location.state?.redirectAfterLogin } });
     } catch (err) {
       // Добавим более подробное логирование ошибки
       console.error('Registration error:', err);

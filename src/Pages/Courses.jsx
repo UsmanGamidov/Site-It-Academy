@@ -1,6 +1,7 @@
 import '../styles/courses.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Courses() {
   const [directions, setDirections] = useState([]);
@@ -8,30 +9,26 @@ export default function Courses() {
   const [activeDirection, setActiveDirection] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({ search: '', sortBy: 'default' });
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchDirections = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
       try {
-        const directionsResponse = await axios.get('http://localhost:3001/directions');
-        const coursesResponse = await axios.get('http://localhost:3001/courses');
+        const [directionsResponse, coursesResponse] = await Promise.all([
+          axios.get('http://localhost:3001/directions'),
+          axios.get('http://localhost:3001/courses')
+        ]);
 
-        const dataDirections = directionsResponse.data || [];
-        const dataCourses = coursesResponse.data || [];
+        const processData = (data) =>
+          (data || []).map((item, index) => ({
+            ...item,
+            id: item.id || item._id || `gen-${Date.now()}-${index}`
+          }));
 
-        const dataDirectionsWithIds = dataDirections.map((item, index) => ({
-          ...item,
-          id: item.id || item._id || `gen-${Date.now()}-${index}`
-        }));
-
-        const dataCoursesWithIds = dataCourses.map((item, index) => ({
-          ...item,
-          id: item.id || item._id || `gen-${Date.now()}-${index}`
-        }));
-
-        setDirections(dataDirectionsWithIds);
-        setCourses(dataCoursesWithIds);
-        setActiveDirection(dataDirectionsWithIds[0] || null);
+        setDirections(processData(directionsResponse.data));
+        setCourses(processData(coursesResponse.data));
+        setActiveDirection(processData(directionsResponse.data)[0] || null);
       } catch (error) {
         console.error('Ошибка при загрузке данных:', error);
       } finally {
@@ -39,24 +36,21 @@ export default function Courses() {
       }
     };
 
-    fetchDirections();
+    fetchData();
   }, []);
 
-  const filteredDirections = directions
-    .filter(direction => direction.title.toLowerCase().includes(filters.search.toLowerCase()))
-    .sort((a, b) => {
-      if (filters.sortBy === 'name-asc') return a.title.localeCompare(b.title);
-      if (filters.sortBy === 'name-desc') return b.title.localeCompare(a.title);
-      return 0;
-    });
+  const filterAndSort = (data) => {
+    return data
+      .filter(item => item.title.toLowerCase().includes(filters.search.toLowerCase()))
+      .sort((a, b) => {
+        if (filters.sortBy === 'name-asc') return a.title.localeCompare(b.title);
+        if (filters.sortBy === 'name-desc') return b.title.localeCompare(a.title);
+        return 0;
+      });
+  };
 
-  const filteredCourses = courses
-    .filter(course => course.title.toLowerCase().includes(filters.search.toLowerCase()))
-    .sort((a, b) => {
-      if (filters.sortBy === 'name-asc') return a.title.localeCompare(b.title);
-      if (filters.sortBy === 'name-desc') return b.title.localeCompare(a.title);
-      return 0;
-    });
+  const filteredDirections = filterAndSort(directions);
+  const filteredCourses = filterAndSort(courses);
 
   if (isLoading) return <div className="body_home loading">Загрузка...</div>;
 
@@ -65,7 +59,7 @@ export default function Courses() {
       <div className='course_navigation'>
         <h1>Выберите направление</h1>
         <nav className='courses-container'>
-          {directions.map(item => (
+          {filteredDirections.map(item => (
             <button
               type="button"
               className={`course-card ${activeDirection?.id === item.id ? 'active-course' : ''}`}
@@ -104,10 +98,21 @@ export default function Courses() {
         <div className="profession-cards-container">
           {filteredCourses.length > 0 ? (
             filteredCourses.map(course => (
-              <div key={course.id} className="profession-card">
-                <h3>{course.title}</h3>
-                <div>{course.courseTime} месяцев</div>
-              </div>
+              course.tags.map(tags => (
+                tags == activeDirection.tags && ( // Ваше условие для отображения карточек
+                  <div key={course.id} className="profession-card" onClick={() => navigate(`/course/${course.id}`)} style={{ cursor: 'pointer' }}>
+                    <div className="card-header">
+                      <span className="card-badge">Профессия</span>
+                      {course.popular && <span className="popular-badge">Популярное</span>}
+                    </div>
+                    <div className="card-header">
+                      <h3 className="card-title">{course.title}</h3>
+                      <img src={course.imageUrl} width="80px" />
+                    </div>
+                    <div className="card-duration">{course.courseTime} месяцев</div>
+                  </div>
+                )
+              ))
             ))
           ) : (
             <div className="no-results">Ничего не найдено</div>

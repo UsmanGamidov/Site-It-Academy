@@ -10,7 +10,8 @@
   padding: 90px 10px 10px;
 }
 
-.loading, .error {
+.loading,
+.error {
   text-align: center;
   padding: 40px;
   font-size: 18px;
@@ -99,7 +100,8 @@
     padding: 0 10px;
   }
 
-  .search-input, .sort-select {
+  .search-input,
+  .sort-select {
     width: 100%;
     min-width: auto;
   }
@@ -187,23 +189,40 @@
 
 .profession-card {
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 20px;
   background: white;
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .profession-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.card-badge {
+  background: #4f46e5;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .popular-badge {
   background: #ff6b6b;
   color: white;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 4px;
   font-size: 12px;
+  font-weight: bold;
 }
 
 .no-results {
@@ -219,4 +238,29 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+
+.card-title {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #333;
+}
+
+.card-duration {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+  .profession-card {
+    padding: 15px;
+  }
+  
+  .profession-cards-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
 }

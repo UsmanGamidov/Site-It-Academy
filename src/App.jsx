@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import Error from './Pages/Error404'
 import Register from './Pages/Register'
 import Courses from './Pages/Courses'
+import CourseDetail from './components/CourseDetail';
 import Login from './Pages/Login'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
@@ -21,6 +22,7 @@ function App() {
           {/* <Route path="/" element={<Home />} /> */}
           <Route path="*" element={<Error />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/course/:id" element={<CourseDetail />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>

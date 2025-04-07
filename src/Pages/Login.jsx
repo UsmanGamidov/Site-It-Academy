@@ -54,10 +54,12 @@ export default function Login() {
 
             // Сохраняем токен (адаптируйте под вашу структуру ответа)
             localStorage.setItem('authToken', data.token);
-            localStorage.setItem('userAvatar', (data.avatarUrl)? data.avatarUrl : false);
+            localStorage.setItem('userAvatar', (data.avatarUrl) ? data.avatarUrl : false);
 
-            // Перенаправляем на главную страницу
-            navigate('/');
+            const redirectPath = location.state?.redirectAfterLogin || '/';
+            navigate(redirectPath);
+            
+
         } catch (err) {
             setErrors({
                 server: err.response?.data?.message || 'Ошибка авторизации'
@@ -119,7 +121,7 @@ export default function Login() {
                 </form>
 
                 <div className="register-link">
-                    Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
+                    Нет аккаунта? <Link to="/register" state={{ redirectAfterLogin: location.state?.redirectAfterLogin }}>Зарегистрироваться</Link>
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@ const CourseSchema = new mongoose.Schema({
     },
     imageUrl: { 
         type: String,
-        default: "https://cdn-icons-png.flaticon.com/512/4837/4837857.png",
+        default: "https://cdn-icons-png.flaticon.com/512/2621/2621040.png",
     },
 })
 
