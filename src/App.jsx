@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-// import Home from './Pages/Home'
+import Home from './Pages/Home'
 import Error from './Pages/Error404'
 import Register from './Pages/Register'
 import Courses from './Pages/Courses'
@@ -19,7 +19,7 @@ function App() {
       <Provider store={store}>
         <Header />
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<Home />} />
           <Route path="*" element={<Error />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDetail />} />

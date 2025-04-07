@@ -1,101 +1,137 @@
-.body_home {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 160px 20px 20px;
-    background-color: white;
-}
-
-.activeItemNavigation {
-    margin: 0 0 20px 10px;
-    font-weight: 900;
-    text-align: left;
-    font-size: clamp(24px, 5vw, 60px);
-    line-height: 1.2;
-    white-space: nowrap;
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
     overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.courses-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 12px;
-    padding: 0 10px;
-}
-
-.course-card {
-    padding: 12px;
-    background: #f8f6f6b6;
-    border-radius: 8px;
-    text-decoration: none;
-    color: #333;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    word-break: break-word;
+    padding: 0 20px;
 }
 
-.course-card:hover {
-    background: #e0e0e0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.hero-background-carousel {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
 }
 
-.course-card.active-course {
-    background-color: #e0e0e0;
-    color: #333;
-    font-weight: bolder;
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.hero-image {
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    border-radius: 40px;
+    /* вот тут магия округлости */
+    overflow: hidden;
 }
 
-/* Адаптация для очень маленьких экранов */
+.hero-image.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 1200px;
+    color: white;
+    padding: 24px;
+    text-align: left;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin: 16px 0 24px;
+}
+
+.highlight {
+    color: #8CFF4D;
+    font-weight: bold;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.span_link {
+    text-decoration: none;
+    padding: 5px;
+}
+
+.tags span {
+    padding: 8px 14px;
+    background: white;
+    color: black;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.tags .black {
+    background: black;
+    color: white;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: 2.25rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        text-align: center;
+        padding: 16px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.75rem;
+    }
+
+    .hero-image {
+        height: 75%;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+
+    .tags {
+        justify-content: center;
+    }
+
+    .hero-section {
+        height: 90vh;
+    }
+}
+
 @media (max-width: 480px) {
-    .body_home {
-        padding-top: 90px;
+    .hero-content h1 {
+        font-size: 1.5rem;
     }
-    
-    .courses-container {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 8px;
-    }
-    
-    .course-card {
-        padding: 8px;
-        font-size: 14px;
-        min-height: 50px;
-    }
-    
-    .activeItemNavigation {
-        font-size: 24px;
-        white-space: normal;
-        margin-bottom: 15px;
-    }
-}
 
-/* Адаптация для вертикальной ориентации на мобильных */
-@media (max-width: 360px) and (orientation: portrait) {
-    .courses-container {
-        grid-template-columns: 1fr;
+    .hero-image {
+        height: 80%;
     }
-    
-    .course-card {
-        width: 90%;
-        margin: 0 auto;
-    }
-}
 
-/* Для ландшафтной ориентации на мобильных */
-@media (max-width: 640px) and (orientation: landscape) {
-    .courses-container {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    }
-    
-    .course-card {
-        font-size: 12px;
-        min-height: 40px;
+    .tags span {
+        font-size: 0.75rem;
+        padding: 6px 10px;
     }
 }

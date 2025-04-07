@@ -102,7 +102,7 @@ export default function Courses() {
                 tags == activeDirection.tags && ( // Ваше условие для отображения карточек
                   <div key={course.id} className="profession-card" onClick={() => navigate(`/course/${course.id}`)} style={{ cursor: 'pointer' }}>
                     <div className="card-header">
-                      <span className="card-badge">Профессия</span>
+                      <span className="card-badge">{ Math.floor(Math.random() * 2)  == 1 ? "Профессия": "Курс"}</span>
                       {course.popular && <span className="popular-badge">Популярное</span>}
                     </div>
                     <div className="card-header">
