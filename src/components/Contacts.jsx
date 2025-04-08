@@ -8,7 +8,7 @@ const Contacts = () => {
                 <div className="contacts-wrapper">
                     {/* Карта */}
                     <div className="map-container">
-                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A5ea7be5a20790247ed577dc64e2981b6e8014fae0384b1133d9b5f11c9301e1c&amp;source=constructor" width="500" height="400" frameborder="0"></iframe>
+                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A5ea7be5a20790247ed577dc64e2981b6e8014fae0384b1133d9b5f11c9301e1c&amp;source=constructor" width="500" height="400" frameBorder="0"></iframe>
                     </div>
 
                     {/* Контактная информация */}

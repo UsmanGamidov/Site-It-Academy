@@ -1,0 +1,148 @@
+/* Общие стили */
+.profile-container {
+    max-width: 700px;
+    width: 90%;
+    margin: 100px auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #1c1c1c;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-header h2 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.profile-header p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Форма */
+.profile-form h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Кнопка */
+.save-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #3b49df;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.save-btn:hover {
+    background-color: #2f3fc1;
+}
+
+.delete-account {
+    text-align: center;
+    margin-top: 30px;
+    color: #d9534f;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* ✅ Мобильная адаптация */
+@media (max-width: 768px) {
+    .profile-container {
+        margin: 50px auto;
+        padding: 15px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+    }
+
+    .profile-avatar {
+        width: 70px;
+        height: 70px;
+    }
+
+    .profile-header h2 {
+        font-size: 18px;
+    }
+
+    .form-group input,
+    .form-group select {
+        font-size: 16px;
+    }
+
+    .save-btn {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
+
+/* 📱 Супер маленькие устройства */
+@media (max-width: 480px) {
+    .profile-container {
+        padding: 10px;
+    }
+
+    .profile-header h2 {
+        font-size: 16px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+    }
+
+    .save-btn {
+        font-size: 14px;
+    }
+}

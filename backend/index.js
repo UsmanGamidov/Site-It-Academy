@@ -35,8 +35,10 @@ app.use('/uploads', express.static('backend/uploads'))
 app.post('/api/send-email', sendMailController.sendMail);
 
 app.post('/login', loginValidation, UserController.login)
-app.get('/me', checkAuth, UserController.getMe)
+app.get('/profile/:id', checkAuth, UserController.getMe)
+app.patch('/profile/:id', checkAuth, UserController.update)
 app.post('/register', registerValidation, UserController.register)
+
 
 // app.post('/upload', upload.single('image'), (req, res) => {
 //     res.json({

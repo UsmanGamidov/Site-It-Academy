@@ -7,7 +7,7 @@ export default function Register() {
   const location = useLocation();
 
   const [formData, setFormData] = useState({
-    fullName: '',
+    firstName: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -28,9 +28,9 @@ export default function Register() {
     const newErrors = {};
 
     // Изменяем username на fullName
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = 'Полное имя обязательно';
-    } else if (formData.fullName.length < 3) {
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'Полное имя обязательно';
+    } else if (formData.firstName.length < 3) {
       newErrors.fullName = 'Минимум 3 символа';
     }
 
@@ -59,7 +59,7 @@ export default function Register() {
 
     try {
       await axios.post('http://localhost:3001/register', {
-        fullName: formData.fullName,
+        firstName: formData.firstName,
         email: formData.email,
         password: formData.password
       });
@@ -90,14 +90,14 @@ export default function Register() {
             <label>Полное имя</label>  {/* Изменяем label */}
             <input
               type="text"
-              name="fullName"  // Изменяем name на fullName
-              value={formData.fullName}
+              name="firstName"  // Изменяем name на fullName
+              value={formData.firstName}
               onChange={handleChange}
               className={errors.fullName ? 'error' : ''}
               placeholder="Ваше полное имя"
               autoComplete="name"
             />
-            {errors.fullName && <span className="error-text">{errors.fullName}</span>}
+            {errors.fullName && <span className="error-text">{errors.firstName}</span>}
           </div>
 
           <div className="form-group">

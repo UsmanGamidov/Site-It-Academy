@@ -15,7 +15,7 @@ export const register = async (req, res) => {
         const passwordHash = await bcrypt.hash(password, salt)
 
         const doc = new UserModel({
-            fullName: req.body.fullName,
+            firstName: req.body.firstName,
             email: req.body.email,
             avatarUrl: req.body.avatarUrl,
             passwordHash,
@@ -104,5 +104,35 @@ export const getMe = async (req, res) => {
         return res.json({
             message: 'Нет доступа',
         })
+    }
+}
+
+export const update = async (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        await UserModel.updateOne({
+            _id: userId
+        }, {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            middleName: req.body.middleName,
+            birthDate: req.body.birthDate,
+            gender: req.body.gender,
+            phone: req.body.phone,
+            country: req.body.country,
+            city: req.body.city,
+            email: req.body.email,
+            passwordHash: req.body.passwordHash,
+            avatarUrl: req.body.avatarUrl,
+        })
+
+        res.json({ message: true })
+    } catch (error) {
+        console.error('Ошибка при обновлени профиля:', error);
+        res.status(500).json({
+            success: false,
+            message: "Не удалось обновить профиль",
+        });
     }
 }

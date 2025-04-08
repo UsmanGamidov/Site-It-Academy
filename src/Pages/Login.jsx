@@ -54,6 +54,7 @@ export default function Login() {
 
             // Сохраняем токен (адаптируйте под вашу структуру ответа)
             localStorage.setItem('authToken', data.token);
+            localStorage.setItem('id', data._id);
             localStorage.setItem('userAvatar', (data.avatarUrl) ? data.avatarUrl : false);
 
             const redirectPath = location.state?.redirectAfterLogin || '/';

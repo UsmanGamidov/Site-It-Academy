@@ -1,11 +1,10 @@
-/* Основной стиль для блока преподавателей */
+/* Стили для блока преподавателей */
 .teachers-section {
     text-align: center;
     padding: 40px 20px;
     background-color: #b8cffc60;
     border-radius: 20px;
     margin-top: 60px;
-
 }
 
 .teachers-section h2 {
@@ -77,10 +76,34 @@
     .teacher-card {
         max-width: 280px;
     }
+
+    .teacher-info h3 {
+        font-size: 1.25rem;
+    }
+
+    .teacher-description {
+        font-size: 0.875rem;
+    }
 }
 
 @media (max-width: 480px) {
     .teacher-card {
         max-width: 100%;
+    }
+
+    .teacher-image {
+        height: 150px;
+    }
+
+    .teacher-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .teacher-role {
+        font-size: 0.9rem;
+    }
+
+    .teacher-description {
+        font-size: 0.8rem;
     }
 }

@@ -57,7 +57,7 @@ export default function CourseDetail() {
         if (token) {
             setShowModal(true);
         } else {
-            navigate('/login', { state: { redirectAfterLogin: `/courses/${id}` } });
+            navigate('/login', { state: { redirectAfterLogin: `/course/${id}` } });
         }
     };
 

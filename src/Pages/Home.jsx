@@ -24,33 +24,7 @@ export default function Home() {
         return () => clearInterval(interval);
     }, []);
 
-    // Прокрутка при изменении хеша в URL
-    useEffect(() => {
-        // Функция для прокрутки
-        const handleScrollToTeachers = () => {
-            if (window.location.hash === '#teachers') {
-                const element = document.getElementById('teachers');
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-
-            if (window.location.hash === '#courses') {
-                const element = document.getElementById('courses');
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        };
-
-        // Прокручиваем сразу, если хеш уже в URL
-        handleScrollToTeachers();
-
-        // Слушаем изменения хеша
-        window.addEventListener('hashchange', handleScrollToTeachers);
-
-        return () => window.removeEventListener('hashchange', handleScrollToTeachers);
-    }, []); // Пустой массив, чтобы сработало только один раз при монтировании
+   
 
     return (
         <>
