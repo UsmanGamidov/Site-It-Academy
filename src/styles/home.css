@@ -1,30 +1,43 @@
+body {
+    margin: 0;
+    /* Убираем стандартные отступы */
+    padding: 0;
+    overflow-x: hidden;
+    /* Отключаем горизонтальную прокрутку */
+}
+
 .hero-section {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 80vh;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 20px;
+    box-sizing: border-box;
+    /* Учитываем padding в ширине */
 }
 
 .hero-background-carousel {
     position: absolute;
     inset: 0;
     z-index: 1;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .hero-image {
     position: absolute;
     width: 100%;
-    height: 70%;
+    height: 100%;
     object-fit: cover;
     opacity: 0;
     transition: opacity 1s ease-in-out;
     border-radius: 40px;
-    /* вот тут магия округлости */
     overflow: hidden;
 }
 
@@ -34,9 +47,9 @@
 }
 
 .hero-content {
-    position: relative;
+    float: left;
     z-index: 3;
-    max-width: 1200px;
+    max-width: 900px;
     color: white;
     padding: 24px;
     text-align: left;
@@ -57,11 +70,11 @@
     color: #8CFF4D;
     font-weight: bold;
 }
-
 .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
 }
 
 .span_link {
@@ -78,9 +91,126 @@
     font-weight: 500;
 }
 
+.tags span:hover {
+    background: #aaaaaa;
+}
+
 .tags .black {
     background: black;
     color: white;
+}
+
+/* Программы */
+.programs-section {
+    margin-top: 60px;
+    text-align: center;
+    background: #b8cffc60;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    padding: 20px 20px;
+    /* Добавляем padding, чтобы не было переполнения */
+}
+
+.programs-section h2 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 32px;
+    color: #000;
+}
+
+.programs-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.programs-tabs button {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #000;
+}
+
+.programs-tabs button.active {
+    background: #000;
+    color: #fff;
+}
+
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto 40px;
+}
+
+.program-card {
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    height: 240px;
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+    position: relative;
+    color: white;
+    overflow: hidden;
+}
+
+.program-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
+    border-radius: 16px;
+    z-index: 1;
+}
+
+.program-card-content {
+    position: relative;
+    z-index: 2;
+    text-align: left;
+}
+
+.program-card-content .label {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.85;
+    display: inline-block;
+    margin-bottom: 6px;
+}
+
+.program-card-content h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.program-card-content p {
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+.load-more {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.load-more:hover {
+    background: #3730a3;
 }
 
 /* Адаптивность */

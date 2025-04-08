@@ -1,0 +1,86 @@
+/* Основной стиль для блока преподавателей */
+.teachers-section {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #b8cffc60;
+    border-radius: 20px;
+    margin-top: 60px;
+
+}
+
+.teachers-section h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.teachers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.teacher-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.teacher-card:hover {
+    transform: translateY(-10px);
+}
+
+.teacher-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #ddd;
+}
+
+.teacher-info {
+    padding: 20px;
+}
+
+.teacher-info h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 10px 0;
+}
+
+.teacher-role {
+    font-size: 1rem;
+    color: #888;
+    margin: 5px 0;
+}
+
+.teacher-description {
+    font-size: 0.875rem;
+    color: #555;
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .teachers-section h2 {
+        font-size: 2.25rem;
+    }
+
+    .teacher-card {
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .teacher-card {
+        max-width: 100%;
+    }
+}

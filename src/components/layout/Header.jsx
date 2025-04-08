@@ -15,7 +15,7 @@ const Header = () => {
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     const avatar = localStorage.getItem('userAvatar');
-    
+
     if (token) {
       setIsLoggedIn(true);
       if (avatar) {
@@ -54,8 +54,8 @@ const Header = () => {
   const navItems = [
     { name: 'Главная', path: '/' },
     { name: 'Курсы', path: '/courses' },
-    { name: 'Преподаватели', path: '/teachers' },
-    { name: 'Контакты', path: '/contacts' }
+    { name: 'Преподаватели', path: '/#teachers' },
+    { name: 'Контакты', path: '/#contacts' }
   ];
 
   return (
@@ -65,7 +65,7 @@ const Header = () => {
         <Link to="/" className="logoo">
           IT-Academy
         </Link>
- 
+
         {/* Десктопное меню */}
         <nav className="nav-links">
           {navItems.map((item) => (
@@ -81,15 +81,15 @@ const Header = () => {
         {isLoggedIn ? (
           <div className="user-avatar-container">
             {userAvatar ? (
-              <img 
-                src={userAvatar} 
+              <img
+                src={userAvatar}
                 width={50}
-                alt="Аватар пользователя" 
+                alt="Аватар пользователя"
                 className="user-avatar"
                 onClick={() => navigate('/profile')}
               />
             ) : (
-              <div 
+              <div
                 className="avatar-placeholder"
                 onClick={() => navigate('/profile')}
               >
@@ -111,8 +111,8 @@ const Header = () => {
         )}
 
         {/* Кнопка мобильного меню */}
-        <button 
-          className="mobile-menu-btn" 
+        <button
+          className="mobile-menu-btn"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Меню"
         >
@@ -133,14 +133,14 @@ const Header = () => {
           ))}
           {isLoggedIn ? (
             <>
-              <Link 
-                to="/profile" 
+              <Link
+                to="/profile"
                 className="mobile-link"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Профиль
               </Link>
-              <button 
+              <button
                 className="mobile-logout-btn"
                 onClick={() => {
                   handleLogout();
@@ -151,8 +151,8 @@ const Header = () => {
               </button>
             </>
           ) : (
-            <Link 
-              to="/login" 
+            <Link
+              to="/login"
               className="mobile-login-btn"
               onClick={() => setIsMenuOpen(false)}
             >
@@ -163,8 +163,8 @@ const Header = () => {
         </div>
 
         {/* Оверлей */}
-        <div 
-          className={`overlay ${isMenuOpen ? 'active' : ''}`} 
+        <div
+          className={`overlay ${isMenuOpen ? 'active' : ''}`}
           onClick={() => setIsMenuOpen(false)}
         />
       </div>

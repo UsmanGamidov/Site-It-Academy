@@ -11,6 +11,7 @@ import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import store from './redux/store'
 
+
 function App() {
 
   return (

@@ -1,5 +1,7 @@
 /* Базовые стили */
 .header {
+  border-radius: 40px;
+  max-width: 1280px;
   margin-left: auto;
   position: fixed;
   width: 100%;
@@ -15,7 +17,7 @@
 }
 
 .container {
-  max-width: 1300px;
+  
   margin: 20px;
   display: flex;
   justify-content: space-between;
