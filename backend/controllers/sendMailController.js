@@ -11,15 +11,27 @@ export const sendMail = async (req, res) => {
         }
     });
 
-    const mailOptions = {
-        from: `"Сайт Курсов" <yourgmail@gmail.com>`,
+    const adminMailOptions = {
+        from: `"Сайт Курсов" <osmangamidov026@gmail.com>`,
         to: 'osmangamidov025@gmail.com',
         subject: `Новая заявка на курс: ${title}`,
         text: `ФИО: ${fullName}\nEmail: ${email}\nТелефон: ${phone}\nКурс: ${title}`
     };
 
+    const userMailOptions = {
+        from: `"Сайт Курсов" <osmangamidov026@gmail.com>`,
+        to: email, // отправка на почту пользователя
+        subject: `Вы записались на курс: ${title}`,
+        text: `Здравствуйте, ${fullName}!\n\nВы успешно подали заявку на курс "${title}". Мы скоро с вами свяжемся.\n\nСпасибо!\n\nВаш телефон: ${phone}`
+    };
+
     try {
-        await transporter.sendMail(mailOptions);
+        // Отправляем админу
+        await transporter.sendMail(adminMailOptions);
+
+        // Отправляем пользователю
+        await transporter.sendMail(userMailOptions);
+
         res.status(200).json({ message: 'Заявка отправлена успешно' });
     } catch (error) {
         console.error('Ошибка при отправке письма:', error);

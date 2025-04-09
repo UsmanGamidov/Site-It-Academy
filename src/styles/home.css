@@ -143,6 +143,7 @@ body {
 }
 
 .programs-grid {
+    color: #000000;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 24px;
@@ -150,8 +151,10 @@ body {
     margin: 0 auto 40px;
 }
 
+
+
 .program-card {
-    
+    color: #000000;
     background-size: cover;
     background-position: center;
     border-radius: 16px;
@@ -164,7 +167,12 @@ body {
     overflow: hidden;
 }
 
+.programs-grid a {
+    text-decoration: none;
+}
+
 .program-card::before {
+    
     content: "";
     position: absolute;
     inset: 0;
@@ -174,12 +182,14 @@ body {
 }
 
 .program-card-content {
+    
     position: relative;
     z-index: 2;
     text-align: left;
 }
 
 .program-card-content .label {
+    
     font-size: 12px;
     font-weight: 500;
     opacity: 0.85;
@@ -212,10 +222,6 @@ body {
 
 .load-more:hover {
     background: #3730a3;
-}
-
-a:-webkit-any-link {
-    color: #000000;  /* изменяем цвет на черный */
 }
 
 
