@@ -58,7 +58,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:3001/register', {
+      await axios.post('https://site-it-academy-backend.onrender.com/register', {
         firstName: formData.firstName,
         email: formData.email,
         password: formData.password

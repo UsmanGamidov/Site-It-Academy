@@ -16,7 +16,7 @@ export default function CourseDetail() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/courses/${id}`)
+        axios.get(`https://site-it-academy-backend.onrender.com/courses/${id}`)
             .then(res => setCourse(res.data))
             .catch(err => console.error('Ошибка загрузки:', err));
     }, [id]);
@@ -25,7 +25,7 @@ export default function CourseDetail() {
         e.preventDefault();
 
         try {
-            await axios.post('http://localhost:3001/api/send-email', {
+            await axios.post('https://site-it-academy-backend.onrender.com/api/send-email', {
                 fullName: form.fullName,    
                 email: form.email,
                 phone: form.phone,

@@ -16,8 +16,8 @@ export default function Courses() {
       setIsLoading(true);
       try {
         const [directionsResponse, coursesResponse] = await Promise.all([
-          axios.get('http://localhost:3001/directions'),
-          axios.get('http://localhost:3001/courses')
+          axios.get('https://site-it-academy-backend.onrender.com/directions'),
+          axios.get('https://site-it-academy-backend.onrender.com/courses')
         ]);
 
         const processData = (data) =>

@@ -47,7 +47,7 @@ export default function Login() {
         setLoading(true);
 
         try {
-            const { data } = await axios.post('http://localhost:3001/login', {
+            const { data } = await axios.post('https://site-it-academy-backend.onrender.com/login', {
                 email: formData.email,
                 password: formData.password
             });

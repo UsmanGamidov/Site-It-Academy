@@ -38,7 +38,7 @@ const UserProfile = () => {
     });
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/profile/${id}`, {
+        axios.get(`https://site-it-academy-backend.onrender.com/profile/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }
@@ -70,7 +70,7 @@ const UserProfile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.patch(`http://localhost:3001/profile/${id}`, formData, {
+            await axios.patch(`https://site-it-academy-backend.onrender.com/profile/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }

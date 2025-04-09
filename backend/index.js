@@ -56,6 +56,6 @@ app.delete('/courses/:id', CourseController.remove)
 app.patch('/courses/:id', CourseController.update)
 
 
-app.listen(3001, () => {
+app.listen("3001", () => {
     console.log(`Сервер запущен в проту ${3001}`)
 })
