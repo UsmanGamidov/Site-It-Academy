@@ -113,7 +113,7 @@ export default function Login() {
                     </div>
 
                     <div className="forgot-password">
-                        <Link to="/forgot-password">Забыли пароль?</Link>
+                        {/* <Link to="/forgot-password">Забыли пароль?</Link> */}
                     </div>
 
                     <button type="submit" disabled={loading} className="submit-btn">
