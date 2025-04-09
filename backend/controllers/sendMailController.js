@@ -12,14 +12,14 @@ export const sendMail = async (req, res) => {
     });
 
     const adminMailOptions = {
-        from: `"Сайт Курсов" <osmangamidov026@gmail.com>`,
+        from: `"Сайт Курсов IT-Acadremy" <osmangamidov026@gmail.com>`,
         to: 'osmangamidov025@gmail.com',
         subject: `Новая заявка на курс: ${title}`,
         text: `ФИО: ${fullName}\nEmail: ${email}\nТелефон: ${phone}\nКурс: ${title}`
     };
 
     const userMailOptions = {
-        from: `"Сайт Курсов" <osmangamidov026@gmail.com>`,
+        from: `"Сайт Курсов IT-Acadremy" <osmangamidov026@gmail.com>`,
         to: email, // отправка на почту пользователя
         subject: `Вы записались на курс: ${title}`,
         text: `Здравствуйте, ${fullName}!\n\nВы успешно подали заявку на курс "${title}". Мы скоро с вами свяжемся.\n\nСпасибо!\n\nВаш телефон: ${phone}`

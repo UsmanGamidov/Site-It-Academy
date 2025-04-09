@@ -65,6 +65,10 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.course_navigation h1 {
+  padding-left: 20px;
+}
+
 /* Адаптация для мобильных */
 @media (max-width: 768px) {
   .body_home {
@@ -119,7 +123,12 @@
 /* Для очень маленьких экранов */
 @media (max-width: 480px) {
   .courses-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .course_navigation h1 {
+    font-size: 1.3em;
+    padding-left: 20px;
   }
 
   .course-card {

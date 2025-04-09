@@ -49,7 +49,6 @@ export default function Courses() {
       });
   };
 
-  const filteredDirections = filterAndSort(directions);
   const filteredCourses = filterAndSort(courses);
 
   if (isLoading) return <div className="body_home loading">Загрузка...</div>;
@@ -57,9 +56,9 @@ export default function Courses() {
   return (
     <div className="body_home">
       <div className='course_navigation'>
-        <h1>Выберите направление</h1>
+        <h1 >Выберите направление</h1>
         <nav className='courses-container'>
-          {filteredDirections.map(item => (
+          {directions.map(item => (
             <button
               type="button"
               className={`course-card ${activeDirection?.id === item.id ? 'active-course' : ''}`}
