@@ -151,6 +151,7 @@ body {
 }
 
 .program-card {
+    
     background-size: cover;
     background-position: center;
     border-radius: 16px;
@@ -212,6 +213,11 @@ body {
 .load-more:hover {
     background: #3730a3;
 }
+
+a:-webkit-any-link {
+    color: #000000;  /* изменяем цвет на черный */
+}
+
 
 /* Адаптивность */
 @media (max-width: 1024px) {
