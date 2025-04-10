@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import api from "../axios";
 import '../styles/register.css';
 
 export default function Register() {
@@ -58,7 +59,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      await axios.post('https://site-it-academy-backend.onrender.com/register', {
+      await api.post('/register', {
         firstName: formData.firstName,
         email: formData.email,
         password: formData.password

@@ -11,6 +11,8 @@ export const create = async (req, res) => {
             popular: req.body.popular,
             tags: req.body.tags,
             imageUrl: req.body.imageUrl,
+            reviews: req.body.reviews,
+
         })
 
         const course = await doc.save()
@@ -101,6 +103,7 @@ export const update = async (req, res) => {
             popular: req.body.popular,
             tags: req.body.tags,
             imageUrl: req.body.imageUrl,
+            reviews: req.body.reviews,
         })
 
         res.json({ message: true })

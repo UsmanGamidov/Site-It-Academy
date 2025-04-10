@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import api from "../axios";
+
 import '../styles/login.css';
 
 export default function Login() {
@@ -47,14 +49,14 @@ export default function Login() {
         setLoading(true);
 
         try {
-            const { data } = await axios.post('https://site-it-academy-backend.onrender.com/login', {
+            const { data } = await api.post('/login', {
                 email: formData.email,
                 password: formData.password
             });
 
             // Сохраняем токен (адаптируйте под вашу структуру ответа)
             localStorage.setItem('authToken', data.token);
-            localStorage.setItem('id', data._id);
+            localStorage.setItem('userId', data._id);
             localStorage.setItem('userAvatar', (data.avatarUrl) ? data.avatarUrl : false);
 
             const redirectPath = location.state?.redirectAfterLogin || '/';

@@ -28,6 +28,10 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         default: "https://cdn-icons-png.flaticon.com/512/2621/2621040.png",
     },
+    reviews: {
+        type: [mongoose.Schema.Types.Mixed],
+        default: [],
+    }
 })
 
 export default mongoose.model('Course', CourseSchema)

@@ -3,6 +3,8 @@ import '../styles/userProfile.css'; // Подключим стили отдел�
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import api from "../axios";
+
 
 
 const UserProfile = () => {
@@ -38,7 +40,7 @@ const UserProfile = () => {
     });
 
     useEffect(() => {
-        axios.get(`https://site-it-academy-backend.onrender.com/profile/${id}`, {
+        api.get(`/profile/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }
@@ -70,7 +72,7 @@ const UserProfile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.patch(`https://site-it-academy-backend.onrender.com/profile/${id}`, formData, {
+            await api.patch(`/profile/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }

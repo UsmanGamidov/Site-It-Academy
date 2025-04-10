@@ -14,7 +14,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const id = localStorage.getItem('id');
+    const id = localStorage.getItem('userId');
     const token = localStorage.getItem('authToken');
     const avatar = localStorage.getItem('userAvatar');
     if (token) {
@@ -42,6 +42,7 @@ const Header = () => {
   const handleLogout = () => {
 
     localStorage.removeItem('authToken');
+    localStorage.removeItem('id');
     localStorage.removeItem('userAvatar');
     setIsLoggedIn(false);
     setUserAvatar('');

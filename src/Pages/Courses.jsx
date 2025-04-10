@@ -1,6 +1,8 @@
 import '../styles/courses.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import api from "../axios";
+
 import { useNavigate } from 'react-router-dom';
 
 export default function Courses() {
@@ -16,8 +18,8 @@ export default function Courses() {
       setIsLoading(true);
       try {
         const [directionsResponse, coursesResponse] = await Promise.all([
-          axios.get('https://site-it-academy-backend.onrender.com/directions'),
-          axios.get('https://site-it-academy-backend.onrender.com/courses')
+          api.get('/directions'),
+          api.get('/courses')
         ]);
 
         const processData = (data) =>
