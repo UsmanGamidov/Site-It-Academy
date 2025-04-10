@@ -1,5 +1,5 @@
 import { useState } from "react";
-import '../styles/CourseReviews.css';
+import '../styles/courseReviews.css';
 
 
 const initialReviews = [
