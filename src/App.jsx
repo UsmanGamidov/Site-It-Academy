@@ -13,6 +13,7 @@ import store from './redux/store'
 import UserProfile from './components/UserProfile'
 
 
+
 function App() {
 
   return (
@@ -21,6 +22,7 @@ function App() {
       <Provider store={store}>
         <Header />
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Error />} />
           <Route path="/courses" element={<Courses />} />

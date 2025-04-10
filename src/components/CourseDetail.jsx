@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/courseDetail.css';
+import CourseReviews from './CourseReviews';
 
 export default function CourseDetail() {
     const { id } = useParams();
@@ -26,7 +27,7 @@ export default function CourseDetail() {
 
         try {
             await axios.post('https://site-it-academy-backend.onrender.com/api/send-email', {
-                fullName: form.fullName,    
+                fullName: form.fullName,
                 email: form.email,
                 phone: form.phone,
                 title: course.title
@@ -133,6 +134,7 @@ export default function CourseDetail() {
                 <div className="benefit"><div className="icon">[+]</div><p>Подходит новичкам без опыта в IT</p></div>
                 <div className="benefit"><div className="icon">[+]</div><p>5 проектов в портфолио</p></div>
             </div>
+            <CourseReviews />
         </div>
     );
 }

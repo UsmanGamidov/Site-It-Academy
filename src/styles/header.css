@@ -176,6 +176,7 @@
 }
 
 .logout-btn {
+  border-radius: 10px;
   background: none;
   border: none;
   color: #ef4444;
@@ -197,6 +198,32 @@
 .logout-btn:hover {
   background: #fef2f2;
 }
+
+.profile-btn {
+  border-radius: 10px;
+  background: none;
+  border: none;
+  color: #000000;
+  font-weight: 600;
+  padding: 8px 15px;
+  width: 100%;
+  text-align: center;
+  /* Центрируем текст */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Центрируем содержимое */
+  gap: 8px;
+}
+
+.profile-btn:hover {
+  background: #d8d8d866;
+}
+
+
 
 /* Добавляем треугольник-указатель */
 .logout-dropdown::before {
@@ -294,30 +321,33 @@
 }
 
 /* Кнопка выхода в мобильном меню */
-.mobile-logout-btn {
+.mobile-logout-btnn {
   background: none;
   border: none;
   color: #ef4444;
   font-size: 1.2rem;
   font-weight: 600;
   padding: 12px 30px;
-  margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
 }
 
-.mobile-profile-btn {
+.mobile-profile-btnn {
+  font-size: 1.5rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  color: #000000;
+  padding: 12px 30px;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 30px;
-  color: #1e293b;
-  font-size: 1.2rem;
-  font-weight: 600;
-  text-decoration: none;
+  cursor: pointer;
 }
+
+
 
 /* Оверлей */
 .overlay {

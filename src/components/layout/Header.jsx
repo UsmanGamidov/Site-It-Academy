@@ -58,7 +58,9 @@ const Header = () => {
   ];
 
   return (
+    
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+      
       <div className="container">
         <Link to="/" className="logoo">IT-Academy</Link>
 
@@ -86,14 +88,14 @@ const Header = () => {
         </nav>
 
         {isLoggedIn ? (
-          <div className="user-avatar-container" onClick={() => navigate(`/profile/${userId}`)}>
+          <div className="user-avatar-container">
             {userAvatar ? (
               <img
                 src={userAvatar}
                 width={50}
                 alt="Аватар пользователя"
                 className="user-avatar"
-                
+
               />
             ) : (
               <div className="avatar-placeholder">
@@ -101,6 +103,7 @@ const Header = () => {
               </div>
             )}
             <div className="logout-dropdown">
+              <button onClick={() => { navigate(`/profile/${userId}`) }} className="profile-btn">Профиль</button>
               <button onClick={handleLogout} className="logout-btn">Выйти</button>
             </div>
           </div>
@@ -146,11 +149,17 @@ const Header = () => {
 
           {isLoggedIn ? (
             <>
-              <Link to="/profile" className="mobile-link" onClick={() => setIsMenuOpen(false)}>
-                Профиль
-              </Link>
               <button
-                className="mobile-logout-btn"
+                className="mobile-profile-btnn"
+                onClick={() => {
+                  navigate(`/profile/${userId}`)
+                  setIsMenuOpen(false);
+                }}
+              >
+                Профиль
+              </button>
+              <button
+                className="mobile-logout-btnn"
                 onClick={() => {
                   handleLogout();
                   setIsMenuOpen(false);
@@ -158,6 +167,7 @@ const Header = () => {
               >
                 Выйти
               </button>
+
             </>
           ) : (
             <Link to="/login" className="mobile-login-btn" onClick={() => setIsMenuOpen(false)}>
