@@ -70,6 +70,7 @@ body {
     color: #8CFF4D;
     font-weight: bold;
 }
+
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -172,7 +173,7 @@ body {
 }
 
 .program-card::before {
-    
+
     content: "";
     position: absolute;
     inset: 0;
@@ -182,14 +183,14 @@ body {
 }
 
 .program-card-content {
-    
+
     position: relative;
     z-index: 2;
     text-align: left;
 }
 
 .program-card-content .label {
-    
+
     font-size: 12px;
     font-weight: 500;
     opacity: 0.85;
@@ -276,4 +277,59 @@ body {
         font-size: 0.75rem;
         padding: 6px 10px;
     }
+}
+
+
+.events-section {
+    background-color: #eaf0ff;
+    border-radius: 30px;
+    padding: 60px 30px;
+    max-width: 1200px;
+    margin: 60px auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+.events-header h2 {
+    font-size: 2.2rem;
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+
+.events-header p {
+    font-size: 1.1rem;
+    color: #4f46e5;
+    margin-bottom: 30px;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.event-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease;
+    text-align: left;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-card h3 {
+    color: #4f46e5;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.event-card p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
 }

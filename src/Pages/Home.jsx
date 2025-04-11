@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import '../styles/home.css';
 import Teachers from '../components/Teachers';
 import Contacts from '../components/Contacts';
+import Footer from '../components/layout/Footer'
+
 
 export default function Home() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -24,7 +26,7 @@ export default function Home() {
         return () => clearInterval(interval);
     }, []);
 
-   
+
 
     return (
         <>
@@ -134,9 +136,37 @@ export default function Home() {
                 </Link>
             </ section>
 
+            <section className="events-section" id="events">
+                <div className="events-header">
+                    <h2>Ближайшие мероприятия</h2>
+                    <p>Присоединяйтесь к событиям, которые прокачают ваши навыки и расширят круг общения</p>
+                </div>
+                <div className="events-grid">
+                    <div className="event-card">
+                        <h3>🔥 Хакатон по Frontend</h3>
+                        <p>15 май 2025</p>
+                        <p>Онлайн-соревнование среди начинающих и опытных верстальщиков.</p>
+                    </div>
+                    <div className="event-card">
+                        <h3>🎤 Вебинар: Как войти в IT</h3>
+                        <p>20 май 2025</p>
+                        <p>Советы от менторов IT-Academy, реальные кейсы и путь новичков.</p>
+                    </div>
+                    <div className="event-card">
+                        <h3>🧠 Мастер-класс по UX/UI</h3>
+                        <p>28 май 2025</p>
+                        <p>Погружаемся в основы дизайна интерфейсов и делаем первый проект.</p>
+                    </div>
+                </div>
+            </section>
+
+
+
             {/* Секция преподавателей */}
             <Teachers />
             <Contacts />
+            <Footer />
+
         </>
     );
 }

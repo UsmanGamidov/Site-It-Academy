@@ -35,6 +35,7 @@
   padding: 0 10px;
 }
 
+
 .course-card {
   padding: 12px;
   background: #f8f6f6b6;
@@ -206,10 +207,16 @@
   overflow: hidden;
 }
 
+.profession-card img {
+  border-radius: 16px;
+}
+
+
 .profession-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
+
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -267,9 +274,40 @@
   .profession-card {
     padding: 15px;
   }
-  
+
   .profession-cards-container {
     grid-template-columns: 1fr;
     gap: 15px;
   }
+}
+
+.color-0 {
+  background-color: #E0F2FE;
+}
+
+.color-1 {
+  background-color: #FEF9C3;
+}
+
+.color-2 {
+  background-color: #FCE7F3;
+}
+
+.color-3 {
+  background-color: #DCFCE7;
+}
+
+.color-4 {
+  background-color: #FAE8FF;
+}
+
+.color-5 {
+  background-color: #FFE4E6;
+}
+
+.card-rating {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f59e0b;
 }

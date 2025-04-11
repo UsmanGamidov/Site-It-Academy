@@ -15,9 +15,10 @@ const Contacts = () => {
                     <div className="contact-info">
                         <h2>Наши Контакты</h2>
                         <p><b>Адрес:</b> ул. Батманова, 2, Каспийск, Россия</p>
-                        <p><b>Телефон:</b> +7 (988) 22-77-166</p>
-                        <p><b>Email:</b> bombaKlass@it-academy.com</p>
+                        <p><b>Телефон: </b><a href="tel:+79882277166">+7 988 22 77 166</a></p>
+                        <p><b>Emaiil: </b><a href="mailto:osmangamidov026@gmail.com">it_top_acamdemy@it_top.com</a></p>
                         <p><b>Часы работы:</b> Без выходных: 9:00 - 18:00</p>
+
                     </div>
                 </div>
             </div>

@@ -70,24 +70,27 @@
     color: #333;
 }
 
-/* Форма */
 .review-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    /* отступ справа для всей формы */
 }
 
 .review-form input,
 .review-form textarea,
 .review-form select {
-    padding: 12px 14px;
+    padding: 12px 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 14px;
     width: 100%;
     resize: vertical;
     font-family: inherit;
+    box-sizing: border-box;
+    /* обязательно! */
 }
+
 
 .review-form textarea {
     min-height: 100px;
@@ -107,6 +110,83 @@
 .review-form button:hover {
     background-color: #4338ca;
 }
+
+.edit-review-btn {
+    padding: 10px 20px;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.edit-review-btn:hover {
+    background-color: #4f46e5;
+}
+
+.delete-review-btn {
+    padding: 10px 20px;
+    background-color: #f84141;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-left: 10px;
+}
+
+.delete-review-btn:hover {
+    background-color: #dc2626;
+}
+
+.toggle-reviews-btn {
+    text-decoration: none;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4f46e5;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.toggle-reviews-btn:hover {
+    color: #4338ca;
+}
+
+.review-card .date em {
+    font-style: italic;
+    font-size: 11px;
+    color: #888;
+    margin-left: 4px;
+}
+
+.sort-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.sort-bar select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.sort-bar select:hover {
+    border-color: #4f46e5;
+}
+
+
 
 /* Мобильная адаптация */
 @media (max-width: 600px) {
@@ -129,3 +209,10 @@
         font-size: 13px;
     }
 }
+
+@media (max-width: 380px) {
+    .sort-bar h2 {
+        font-size: 18px;
+    }
+}
+

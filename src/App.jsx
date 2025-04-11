@@ -8,7 +8,6 @@ import Courses from './Pages/Courses'
 import CourseDetail from './components/CourseDetail';
 import Login from './Pages/Login'
 import Header from './components/layout/Header'
-// import Footer from './components/layout/Footer'
 import store from './redux/store'
 import UserProfile from './components/UserProfile'
 
@@ -31,7 +30,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile/:id" element={<UserProfile />} />
         </Routes>
-        {/* <Footer /> */}
       </Provider>
     </BrowserRouter>
 

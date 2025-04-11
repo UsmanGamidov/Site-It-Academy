@@ -1,13 +1,11 @@
 import '../styles/courses.css';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import api from "../axios";
-
 import { useNavigate } from 'react-router-dom';
 
 export default function Courses() {
   const [directions, setDirections] = useState([]);
-  const [courses, setCourses] = useState([]);
+  const [shuffledCourses, setShuffledCourses] = useState([]);
   const [activeDirection, setActiveDirection] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({ search: '', sortBy: 'default' });
@@ -28,9 +26,14 @@ export default function Courses() {
             id: item.id || item._id || `gen-${Date.now()}-${index}`
           }));
 
-        setDirections(processData(directionsResponse.data));
-        setCourses(processData(coursesResponse.data));
-        setActiveDirection(processData(directionsResponse.data)[0] || null);
+        const preparedDirections = processData(directionsResponse.data);
+        const preparedCourses = processData(coursesResponse.data);
+
+        const shuffled = [...preparedCourses].sort(() => Math.random() - 0.5);
+
+        setDirections(preparedDirections);
+        setShuffledCourses(shuffled);
+        setActiveDirection(preparedDirections[0] || null);
       } catch (error) {
         console.error('Ошибка при загрузке данных:', error);
       } finally {
@@ -41,24 +44,58 @@ export default function Courses() {
     fetchData();
   }, []);
 
-  const filterAndSort = (data) => {
-    return data
-      .filter(item => item.title.toLowerCase().includes(filters.search.toLowerCase()))
-      .sort((a, b) => {
-        if (filters.sortBy === 'name-asc') return a.title.localeCompare(b.title);
-        if (filters.sortBy === 'name-desc') return b.title.localeCompare(a.title);
-        return 0;
-      });
+  const calculateAverageRating = (reviews = []) => {
+    if (!reviews.length) return null;
+    const total = reviews.reduce((sum, r) => sum + (r.rating || 0), 0);
+    return total / reviews.length;
   };
 
-  const filteredCourses = filterAndSort(courses);
+  const filterAndSort = () => {
+    const base = [...shuffledCourses];
+
+    const filtered = base.filter(item =>
+      item.title.toLowerCase().includes(filters.search.toLowerCase())
+    );
+
+    if (filters.sortBy === 'name-asc') {
+      return filtered.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    if (filters.sortBy === 'name-desc') {
+      return filtered.sort((a, b) => b.title.localeCompare(a.title));
+    }
+
+    if (filters.sortBy === 'rating-asc') {
+      return filtered.sort((a, b) => {
+        const aRating = calculateAverageRating(a.reviews) || 0;
+        const bRating = calculateAverageRating(b.reviews) || 0;
+        return aRating - bRating;
+      });
+    }
+
+    if (filters.sortBy === 'rating-desc') {
+      return filtered.sort((a, b) => {
+        const aRating = calculateAverageRating(a.reviews) || 0;
+        const bRating = calculateAverageRating(b.reviews) || 0;
+        return bRating - aRating;
+      });
+    }
+
+    if (filters.sortBy === 'popular') {
+      return filtered.sort((a, b) => (b.popular === true) - (a.popular === true));
+    }
+
+    return filtered;
+  };
+
+  const filteredCourses = filterAndSort();
 
   if (isLoading) return <div className="body_home loading">Загрузка...</div>;
 
   return (
     <div className="body_home">
       <div className='course_navigation'>
-        <h1 >Выберите направление</h1>
+        <h1>Выберите направление</h1>
         <nav className='courses-container'>
           {directions.map(item => (
             <button
@@ -88,6 +125,9 @@ export default function Courses() {
             className="sort-select"
           >
             <option value="default">Сортировка</option>
+            <option value="rating-desc">Рейтинг (высокий → низкий)</option>
+            <option value="rating-asc">Рейтинг (низкий → высокий)</option>
+            <option value="popular">Популярные</option>
             <option value="name-asc">А-Я</option>
             <option value="name-desc">Я-А</option>
           </select>
@@ -97,25 +137,37 @@ export default function Courses() {
       <div className="courses-main-content">
         <h1>{activeDirection?.title || 'Все направления'}</h1>
         <div className="profession-cards-container">
-          {filteredCourses.length > 0 ? (
-            filteredCourses.map(course => (
-              course.tags.map(tags => (
-                tags == activeDirection.tags && ( // Ваше условие для отображения карточек
-                  <div key={course.id} className="profession-card" onClick={() => navigate(`/course/${course.id}`)} style={{ cursor: 'pointer' }}>
-                    <div className="card-header">
-                      <span className="card-badge">{ Math.floor(Math.random() * 2)  == 1 ? "Профессия": "Курс"}</span>
-                      {course.popular && <span className="popular-badge">Популярное</span>}
-                    </div>
-                    <div className="card-header">
-                      <h3 className="card-title">{course.title}</h3>
-                      <img src={course.imageUrl} width="80px" />
-                    </div>
-                    <div className="card-duration">{course.courseTime} месяцев</div>
+          {filteredCourses
+            .filter(course =>
+              Array.isArray(course.tags) &&
+              Array.isArray(activeDirection?.tags) &&
+              course.tags.some(tag => activeDirection.tags.includes(tag))
+            )
+            .map((course, index) => {
+              const averageRating = calculateAverageRating(course.reviews);
+              return (
+                <div
+                  key={course.id}
+                  className={`profession-card color-${index % 6}`}
+                  onClick={() => navigate(`/course/${course.id}`)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="card-header">
+                    {course.popular && <span className="popular-badge">Популярное</span>}
                   </div>
-                )
-              ))
-            ))
-          ) : (
+                  <div className="card-header">
+                    <h3 className="card-title">{course.title}</h3>
+                    <img src={course.imageUrl} width="80px" alt={course.title} />
+                  </div>
+                  <div className="card-duration">{course.courseTime} месяцев</div>
+                  {averageRating && (
+                    <div className="card-rating">⭐ {averageRating.toFixed(1)}</div>
+                  )}
+                </div>
+              );
+            })
+          }
+          {filteredCourses.length === 0 && (
             <div className="no-results">Ничего не найдено</div>
           )}
         </div>
