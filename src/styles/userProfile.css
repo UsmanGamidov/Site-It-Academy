@@ -101,6 +101,7 @@
 @media (max-width: 768px) {
     .profile-container {
         margin: 50px auto;
+        margin-top: 100px;
         padding: 15px;
     }
 
