@@ -55,7 +55,8 @@ const Header = () => {
     { name: 'Главная', path: '/' },
     { name: 'Курсы', path: '/courses' },
     { name: 'Преподаватели', path: '/#teachers', hash: true },
-    { name: 'Контакты', path: '/#contacts', hash: true }
+    { name: 'Контакты', path: '/#contacts', hash: true },
+    { name: 'Избранные', path: '/favorites', hash: true }
   ];
 
   return (
@@ -105,6 +106,7 @@ const Header = () => {
             )}
             <div className="logout-dropdown">
               <button onClick={() => { navigate(`/profile/${userId}`) }} className="profile-btn">Профиль</button>
+              <button onClick={() => { navigate(`/favorites`) }} className="profile-btn">Избранные</button>
               <button onClick={handleLogout} className="logout-btn">Выйти</button>
             </div>
           </div>

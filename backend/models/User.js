@@ -45,7 +45,8 @@ const UserSchema = new mongoose.Schema({
     avatarUrl: { 
         type: String,
         default: "https://cdn-icons-png.flaticon.com/512/4837/4837857.png",
-    }
+    },
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }]
 }, {
     timestamps: true,
 })

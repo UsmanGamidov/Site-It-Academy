@@ -1,3 +1,4 @@
+/* Основной футер */
 .footer {
     margin-top: 60px;
     background-color: #b8cffc60;
@@ -5,144 +6,124 @@
     color: #000000;
     padding: 40px 20px 20px;
     margin-bottom: 30px;
-
-}
-
-.footer-container {
+  }
+  
+  .footer-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center; /* Центрируем 3 секции */
     max-width: 1200px;
     margin: 0 auto;
-    gap: 40px;
-}
-
-.footer-section {
-    flex: 1 1 200px;
-    min-width: 260px;
-}
-
-.footer-section h4 {
+    gap: 30px;
+  }
+  
+  .footer-section {
+    flex: 1 1 30%; /* 3 секции по 30% */
+    min-width: 200px;
+    text-align: center;
+  }
+  
+  .footer-section h4 {
     margin-bottom: 16px;
     font-size: 18px;
     color: #000000;
-}
-
-.footer-section ul {
+  }
+  
+  .footer-section ul {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.footer-section ul li {
+  }
+  
+  .footer-section ul li {
     margin-bottom: 10px;
-}
-
-.footer-section ul li a {
+  }
+  
+  .footer-section ul li a {
     color: #000000;
     text-decoration: none;
     transition: color 0.3s;
-}
-
-.footer-section ul li a:hover {
+  }
+  
+  .footer-section ul li a:hover {
     color: #0000007d;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 14px;
-    resize: none;
-}
-
-.contact-form button {
-    background-color: #000000;
-    color: #e2e2e2;
-    border: none;
-    padding: 10px 16px;
-    font-weight: bold;
-    font-size: 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.contact-form button:hover {
-    background-color: #0000006e;
-}
-
-.social-icons {
+  }
+  
+  .social-icons {
     display: flex;
-    align-items: center;
+    justify-content: center;
     gap: 16px;
     margin-top: 10px;
-}
-
-.social-icons a {
+  }
+  
+  .social-icons a {
     font-size: 24px;
     color: #666;
     transition: color 0.3s;
-}
-
-.social-icons a:hover {
+  }
+  
+  .social-icons a:hover {
     color: #000;
-}
-
-.footer-bottom {
+  }
+  
+  .footer-bottom {
     text-align: center;
-    padding-bottom: 10px;
+    padding-top: 10px;
     font-size: 14px;
     color: #888;
-    padding-top: 10px;
-}
-
-/* 🔁 Адаптивность */
-@media (max-width: 768px) {
+  }
+  
+  /* 🔥 Адаптив для планшетов и телефонов */
+  @media (max-width: 768px) {
     .footer-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+      flex-direction: row;
+      gap: 20px;
     }
-
+  
     .footer-section {
-        min-width: 100%;
+      flex: 1 1 45%; /* Две секции в ряд */
+      min-width: 150px;
     }
-
-    .contact-form textarea {
-        height: 100px;
-    }
-
-    .social-icons {
-        justify-content: center;
-    }
-
-    .footer-bottom {
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 480px) {
-
-    .contact-form input,
-    .contact-form textarea {
-        font-size: 13px;
-        padding: 8px;
-    }
-
-    .contact-form button {
-        padding: 8px 14px;
-        font-size: 14px;
-    }
-
+  
     .footer-section h4 {
-        font-size: 16px;
+      font-size: 16px;
+      margin-bottom: 10px;
     }
-
+  
+    .footer-section ul li a {
+      font-size: 14px;
+    }
+  
     .social-icons a {
-        font-size: 20px;
+      font-size: 22px;
     }
-}
+  
+    .footer-bottom {
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .footer-section {
+      flex: 1 1 100%;
+      margin-bottom: 20px;
+    }
+  
+    .footer-section h4 {
+      font-size: 15px;
+    }
+  
+    .footer-section ul li a {
+      font-size: 13px;
+    }
+  
+    .social-icons a {
+      font-size: 20px;
+    }
+  }
+  

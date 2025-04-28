@@ -221,7 +221,7 @@ export default function CourseReviews({ course }) {
             </div>
           ))
         ) : (
-          <p>Отзывов пока нету</p>
+          <p>Отзывы отсутствуют</p>
         )}
       </div>
 

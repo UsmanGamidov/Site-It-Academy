@@ -2,14 +2,17 @@ import '../styles/courses.css';
 import { useEffect, useState } from 'react';
 import api from "../axios";
 import { useNavigate } from 'react-router-dom';
+import { FaHeart, FaRegHeart } from 'react-icons/fa'; // Сердечки
 
 export default function Courses() {
   const [directions, setDirections] = useState([]);
   const [shuffledCourses, setShuffledCourses] = useState([]);
   const [activeDirection, setActiveDirection] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [favorites, setFavorites] = useState([]); // Теперь пустой массив
   const [filters, setFilters] = useState({ search: '', sortBy: 'default' });
   const navigate = useNavigate();
+  const token = localStorage.getItem('authToken');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +37,10 @@ export default function Courses() {
         setDirections(preparedDirections);
         setShuffledCourses(shuffled);
         setActiveDirection(preparedDirections[0] || null);
+
+        if (token) {
+          await fetchFavorites();
+        }
       } catch (error) {
         console.error('Ошибка при загрузке данных:', error);
       } finally {
@@ -43,6 +50,28 @@ export default function Courses() {
 
     fetchData();
   }, []);
+  
+  const fetchFavorites = async () => {
+    try {
+      const res = await api.get('/favorites', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setFavorites(res.data.map(course => course._id));
+    } catch (err) {
+      console.error('Ошибка загрузки избранных', err);
+    }
+  };
+
+  const toggleFavorite = async (courseId) => {
+    try {
+      await api.post(`/favorites/${courseId}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      await fetchFavorites();
+    } catch (err) {
+      console.error('Ошибка лайка', err);
+    }
+  };
 
   const calculateAverageRating = (reviews = []) => {
     if (!reviews.length) return null;
@@ -145,28 +174,41 @@ export default function Courses() {
             )
             .map((course, index) => {
               const averageRating = calculateAverageRating(course.reviews);
+              const isFavorite = favorites.includes(course.id);
               return (
                 <div
                   key={course.id}
                   className={`profession-card color-${index % 6}`}
-                  onClick={() => navigate(`/course/${course.id}`)}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', position: 'relative' }}
                 >
-                  <div className="card-header">
-                    {course.popular && <span className="popular-badge">Популярное</span>}
+                  {token ? (
+                    <div
+                      className="favorite-icon"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(course.id);
+                      }}
+                    >
+                      {isFavorite ? <FaHeart color="red" size={24} /> : <FaRegHeart color="gray" size={24} />}
+                    </div>
+                  ) : null}
+
+                  <div onClick={() => navigate(`/course/${course.id}`)}>
+                    <div className="card-header">
+                      {course.popular && <span className="popular-badge">Популярное</span>}
+                    </div>
+                    <div className="card-header">
+                      <h3 className="card-title">{course.title}</h3>
+                      <img src={course.imageUrl} width="80px" alt={course.title} />
+                    </div>
+                    <div className="card-duration">{course.courseTime} месяцев</div>
+                    {averageRating && (
+                      <div className="card-rating">⭐ {averageRating.toFixed(1)}</div>
+                    )}
                   </div>
-                  <div className="card-header">
-                    <h3 className="card-title">{course.title}</h3>
-                    <img src={course.imageUrl} width="80px" alt={course.title} />
-                  </div>
-                  <div className="card-duration">{course.courseTime} месяцев</div>
-                  {averageRating && (
-                    <div className="card-rating">⭐ {averageRating.toFixed(1)}</div>
-                  )}
                 </div>
               );
-            })
-          }
+            })}
           {filteredCourses.length === 0 && (
             <div className="no-results">Ничего не найдено</div>
           )}

@@ -1,14 +1,16 @@
 import express from 'express'
+import mongoose from 'mongoose'
+
 import multer from 'multer'
 import cors from 'cors'
 import nodemailer from 'nodemailer'
-import mongoose from 'mongoose'
 import checkAuth from './utils/checkAuth.js'
 import { registerValidation, loginValidation, direction, course } from './validations.js'
 import * as UserController from './controllers/userController.js'
 import * as DirectionController from './controllers/DirectionController.js'
 import * as CourseController from './controllers/CourseController.js'
 import * as sendMailController from './controllers/sendMailController.js'
+import * as Favorites from './controllers/Favorites.js'
 
 mongoose
     .connect('mongodb+srv://admin:1234@cluster0.mfwiazl.mongodb.net/kyrsovay?retryWrites=true&w=majority&appName=Cluster0')
@@ -30,10 +32,11 @@ const upload = multer({ storage })
 app.use(express.json());
 app.use(cors())
 
-app.use('/uploads', express.static('backend/uploads'))
+app.get('/favorites', checkAuth, Favorites.getAll);
+
+app.post('/favorites/:courseId', checkAuth, Favorites.create_or_delete);
 
 app.post('/api/send-email', sendMailController.sendMail);
-
 app.post('/login', loginValidation, UserController.login)
 app.get('/profile/:id', checkAuth, UserController.getMe)
 app.patch('/profile/:id', checkAuth, UserController.update)
