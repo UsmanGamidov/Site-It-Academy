@@ -11,7 +11,7 @@ const teachersData = [
     {
         name: 'Мария Петрова',
         role: 'Старший преподаватель по UX/UI дизайну',
-        image: 'https://i.pinimg.com/736x/20/ac/5f/20ac5fa7d4837201981f7bc7808214bd.jpg',
+        image: 'https://i.pinimg.com/736x/dc/6f/ed/dc6fedcaa95c9bdea1c2989caa5ce8da.jpg',
         description: 'Мария занимается UX/UI дизайном более 5 лет и обучает студентов с 2018 года.'
     },
     {
