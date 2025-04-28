@@ -7,10 +7,12 @@ const UserSchema = new mongoose.Schema({
     },
     lastName: {
         type: String,
+        default: "",
         required: false,
     },
     middleName: {
         type: String,
+        default: "",
         required: false,
     },
     birthDate: { 
@@ -19,6 +21,7 @@ const UserSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
+        default: "male",
         required: false,
     },
     phone: {
@@ -44,7 +47,7 @@ const UserSchema = new mongoose.Schema({
     },
     avatarUrl: { 
         type: String,
-        default: "https://cdn-icons-png.flaticon.com/512/4837/4837857.png",
+        default: "https://i.pinimg.com/736x/2d/1c/fc/2d1cfce20ae0c1fbdf7084273126996f.jpg",
     },
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }]
 }, {

@@ -10,7 +10,8 @@ export default function Courses() {
   const [activeDirection, setActiveDirection] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [favorites, setFavorites] = useState([]); // Теперь пустой массив
-  const [filters, setFilters] = useState({ search: '', sortBy: 'default' });
+  const [filters, setFilters] = useState({ search: '', sortBy: 'rating-desc' });
+
   const navigate = useNavigate();
   const token = localStorage.getItem('authToken');
 
@@ -50,7 +51,7 @@ export default function Courses() {
 
     fetchData();
   }, []);
-  
+
   const fetchFavorites = async () => {
     try {
       const res = await api.get('/favorites', {

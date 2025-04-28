@@ -11,6 +11,7 @@ const UserProfile = () => {
     const navigate = useNavigate();
     const [profile, setProfile] = useState(null);
     const [token, setToken] = useState(localStorage.getItem("authToken"))
+    const [submitStatus, setSubmitStatus] = useState(null);
     const { id } = useParams();
 
     const formatDate = (isoString) => {
@@ -41,33 +42,33 @@ const UserProfile = () => {
 
     useEffect(() => {
         api.get(`/profile/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
         })
-          .then(res => {
-            const data = res.data;
-      
-            setProfile(data);
-            setFormData({
-              avatarUrl: data.avatarUrl || '',
-              firstName: data.firstName || '',
-              lastName: data.lastName || '',
-              middleName: data.middleName || '',
-              birthDate: formatDate(data.birthDate), // ← форматируем дату
-              gender: data.gender || '',
-              phone: data.phone || '',
-              country: data.country || '',
-              city: data.city || '',
-              email: data.email || '',
-              street: data.street || '',
-              house: data.house || '',
-              apartment: data.apartment || '',
-              timezone: data.timezone || '',
-            });
-          })
-          .catch(err => console.error('Ошибка загрузки:', err));
-      }, [id]);
+            .then(res => {
+                const data = res.data;
+
+                setProfile(data);
+                setFormData({
+                    avatarUrl: data.avatarUrl || '',
+                    firstName: data.firstName || '',
+                    lastName: data.lastName || '',
+                    middleName: data.middleName || '',
+                    birthDate: formatDate(data.birthDate), // ← форматируем дату
+                    gender: data.gender || '',
+                    phone: data.phone || '',
+                    country: data.country || '',
+                    city: data.city || '',
+                    email: data.email || '',
+                    street: data.street || '',
+                    house: data.house || '',
+                    apartment: data.apartment || '',
+                    timezone: data.timezone || '',
+                });
+            })
+            .catch(err => console.error('Ошибка загрузки:', err));
+    }, [id]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -77,10 +78,13 @@ const UserProfile = () => {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            alert("Профиль успешно изменен");
+            setSubmitStatus('success');
+            setTimeout(() => {
+                setSubmitStatus(null);
+            }, 3000);
         } catch (err) {
             console.error(err);
-            alert("Ошибка при сохранении");
+            setSubmitStatus('error');
         }
     };
 
@@ -97,7 +101,7 @@ const UserProfile = () => {
                     className="profile-avatar"
                 />
                 <div>
-                    <h2>{formData.firstName} {formData.lastName}</h2>
+                    <h2>{formData.lastName} {formData.firstName} </h2>
                     <p>{formData.email}</p>
                 </div>
             </div>
@@ -106,13 +110,13 @@ const UserProfile = () => {
                 <h3>👤 Учетные данные</h3>
 
                 <div className="form-group">
-                    <label>Имя</label>
-                    <input name="firstName" value={formData.firstName} onChange={handleChange} />
+                    <label>Фамилия</label>
+                    <input name="lastName" value={formData.lastName} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
-                    <label>Фамилия</label>
-                    <input name="lastName" value={formData.lastName} onChange={handleChange} />
+                    <label>Имя</label>
+                    <input name="firstName" value={formData.firstName} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
@@ -148,6 +152,13 @@ const UserProfile = () => {
                     <label>Город</label>
                     <input name="city" value={formData.city} onChange={handleChange} />
                 </div>
+
+                {submitStatus === 'success' && (
+                    <div className="status-message success">Профиль успешно изменен!</div>
+                )}
+                {submitStatus === 'error' && (
+                    <div className="status-message error">Произошла ошибка. Попробуйте позже.</div>
+                )}
 
                 <button type="submit" className="save-btn">Сохранить</button>
             </form>

@@ -56,8 +56,12 @@ const Header = () => {
     { name: 'Курсы', path: '/courses' },
     { name: 'Преподаватели', path: '/#teachers', hash: true },
     { name: 'Контакты', path: '/#contacts', hash: true },
-    { name: 'Избранные', path: '/favorites', hash: true }
   ];
+  
+  if (isLoggedIn) {
+    navItems.push({ name: 'Избранные', path: '/favorites' });
+  }
+  
 
   return (
     

@@ -7,6 +7,8 @@ import CourseReviews from './CourseReviews';
 
 export default function CourseDetail() {
     const { id } = useParams();
+    const navigate = useNavigate();
+
     const [course, setCourse] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
@@ -15,17 +17,43 @@ export default function CourseDetail() {
         email: '',
         phone: ''
     });
-    const navigate = useNavigate();
 
     useEffect(() => {
-        api.get(`/courses/${id}`)
-            .then(res => setCourse(res.data))
-            .catch(err => console.error('Ошибка загрузки:', err));
+        async function fetchCourse() {
+            try {
+                const courseRes = await api.get(`/courses/${id}`);
+                setCourse(courseRes.data);
+            } catch (err) {
+                console.error('Ошибка загрузки курса:', err);
+            }
+        }
+        fetchCourse();
     }, [id]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault(); 
+    const fetchProfile = async () => {
+        try {
+            const userId = localStorage.getItem('userId');
+            const token = localStorage.getItem('authToken');
 
+            if (userId && token) {
+                const profileRes = await api.get(`/profile/${userId}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                const { firstName, middleName, lastName, email, phone } = profileRes.data;
+                let fullNameUser = lastName + " " + firstName + " " + middleName;
+                setForm({
+                    fullName: fullNameUser || '',
+                    email: email || '',
+                    phone: phone || ''
+                });
+            }
+        } catch (err) {
+            console.error('Ошибка загрузки профиля:', err);
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
             await api.post('/api/send-email', {
                 fullName: form.fullName,
@@ -35,36 +63,27 @@ export default function CourseDetail() {
             });
 
             setSubmitStatus('success');
-            setForm({ fullName: '', email: '', phone: '' });
-
-            // Очищаем сообщение через 4 секунды и закрываем модалку
             setTimeout(() => {
                 setSubmitStatus(null);
                 setShowModal(false);
             }, 2000);
 
         } catch (err) {
-            console.error(err);
+            console.error('Ошибка отправки заявки:', err);
             setSubmitStatus('error');
-
-            // Убираем сообщение через 4 секунды
             setTimeout(() => setSubmitStatus(null), 2000);
         }
     };
 
-
-    const handleEnrollClick = () => {
+    const handleEnrollClick = async () => {
         const token = localStorage.getItem('authToken');
 
         if (token) {
+            await fetchProfile(); // ПОДГРУЖАЕМ ДАННЫЕ ПРОФИЛЯ перед открытием модалки
             setShowModal(true);
         } else {
             navigate('/login', { state: { redirectAfterLogin: `/course/${id}` } });
         }
-    };
-
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
     };
 
     if (!course) return <div>Загрузка...</div>;
@@ -79,7 +98,7 @@ export default function CourseDetail() {
                     <h1 className="course-title">{course.title}</h1>
                     <p className="course-description">{course.description}</p>
                     <button className="course-btn" onClick={handleEnrollClick}>
-                        записаться на курс
+                        Записаться на курс
                     </button>
                 </div>
                 <div className="course-image">
@@ -95,25 +114,22 @@ export default function CourseDetail() {
                             <input
                                 type="text"
                                 name="fullName"
-                                placeholder="Ваше ФИО"
                                 value={form.fullName}
-                                onChange={handleChange}
+                                placeholder="Ваше ФИО"
                                 required
                             />
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="Ваш email"
                                 value={form.email}
-                                onChange={handleChange}
+                                placeholder="Ваш Email"
                                 required
                             />
                             <input
                                 type="tel"
                                 name="phone"
-                                placeholder="Ваш номер телефона"
                                 value={form.phone}
-                                onChange={handleChange}
+                                placeholder="Ваш номер телефона"
                                 required
                             />
                             <button type="submit" className="send-btn">Отправить</button>
@@ -135,9 +151,8 @@ export default function CourseDetail() {
                 <div className="benefit"><div className="icon">[+]</div><p>Подходит новичкам без опыта в IT</p></div>
                 <div className="benefit"><div className="icon">[+]</div><p>5 проектов в портфолио</p></div>
             </div>
-            
+
             <CourseReviews course={course} />
         </div>
-        
     );
 }

@@ -1,7 +1,7 @@
 /* Базовые стили */
 .header {
   border-radius: 40px;
-  max-width: 1280px;
+  max-width: 1400px;
   margin-left: auto;
   position: fixed;
   width: 100%;
@@ -17,7 +17,6 @@
 }
 
 .container {
-
   margin: 20px;
   display: flex;
   justify-content: space-between;
@@ -369,11 +368,22 @@
 
 
 /* Адаптивность */
-@media (max-width: 1100px) {
 
-  .nav-links,
-  .desktop-btn {
+@media (max-width: 1380px) {
+  .logoo {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 1200px) {
+
+  .nav-links {
     display: none;
+  }
+
+  .desktop-btn {
+    position: absolute;
+    right: 10px;
   }
 
   .mobile-menu-btn {
@@ -407,6 +417,13 @@
     left: 100px;
   }
 }
+
+@media (max-width: 555px) {
+  .desktop-btn {
+    display: none;
+  }
+}
+
 
 @media (max-width: 400px) {
   .logoo {
