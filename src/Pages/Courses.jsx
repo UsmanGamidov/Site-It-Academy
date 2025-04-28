@@ -179,7 +179,7 @@ export default function Courses() {
               return (
                 <div
                   key={course.id}
-                  className={`profession-card color-${index % 6}`}
+                  className={`profession-card color-${index % 4}`}
                   style={{ cursor: 'pointer', position: 'relative' }}
                 >
                   {token ? (
