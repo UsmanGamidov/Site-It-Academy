@@ -11,6 +11,7 @@ import Header from './components/layout/Header'
 import store from './redux/store'
 import UserProfile from './components/UserProfile'
 import Favorites from './Pages/Favorites';
+import Applications from './Pages/Applications';
 
 
 
@@ -30,7 +31,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile/:id" element={<UserProfile />} />
           <Route path="/favorites" element={<Favorites />} />
-        </Routes>
+          <Route path="/applications" element={<Applications />} />
+      </Routes>
       </Provider>
     </BrowserRouter>
 

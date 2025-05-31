@@ -1,4 +1,4 @@
-import { body, validationResult } from 'express-validator'
+import { validationResult } from 'express-validator'
 import UserModel from '../models/User.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
@@ -100,6 +100,7 @@ export const getMe = async (req, res) => {
             ... user._doc
         }) 
 
+    // eslint-disable-next-line no-unused-vars
     } catch (error) {
         return res.json({
             message: 'Нет доступа',

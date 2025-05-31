@@ -77,7 +77,7 @@ export const remove = async (req, res) => {
         res.json({
             success: true,
             message: "Статья успешно удалена",
-            data: deletedcourse
+            data: deletedCourse,
         });
 
     } catch (error) {

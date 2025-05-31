@@ -60,6 +60,7 @@ const Header = () => {
   
   if (isLoggedIn) {
     navItems.push({ name: 'Избранные', path: '/favorites' });
+    navItems.push({ name: 'Заявки', path: '/applications' });
   }
   
 
