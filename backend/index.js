@@ -1,8 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import { registerValidation, loginValidation, direction, course } from './validations.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+import { registerValidation, loginValidation, direction, course } from './validations.js';
 import checkAuth, { isAdmin } from './middleware/checkAuth.js';
 
 import * as UserController from './controllers/userController.js';
@@ -12,48 +14,63 @@ import * as sendMailController from './controllers/sendMailController.js';
 import * as Favorites from './controllers/Favorites.js';
 import * as applicationController from './controllers/ApplicationsController.js';
 
-mongoose
-    .connect('mongodb+srv://admin:1234@cluster0.mfwiazl.mongodb.net/kyrsovay?retryWrites=true&w=majority&appName=Cluster0')
-    .then(() => console.log('DB OK'))
-    .catch((error) => console.log('DB error', error));
-
 const app = express();
 
+// Подключение к MongoDB
+mongoose
+  .connect('mongodb+srv://admin:1234@cluster0.mfwiazl.mongodb.net/kyrsovay?retryWrites=true&w=majority&appName=Cluster0')
+  .then(() => console.log('✅ DB OK'))
+  .catch((error) => console.log('❌ DB error', error));
+
+// Middleware
 app.use(express.json());
 app.use(cors());
 
-// ---------- Favorites ----------
+// ----------- API Роуты -----------
+// Favorites
 app.get('/favorites', checkAuth, Favorites.getAll);
 app.post('/favorites/:courseId', checkAuth, Favorites.create_or_delete);
 
-// ---------- Email ----------
+// Email
 app.post('/api/send-email', sendMailController.sendMail);
 
-// ---------- Auth ----------
+// Auth
 app.post('/login', loginValidation, UserController.login);
 app.get('/profile/:id', checkAuth, UserController.getMe);
 app.patch('/profile/:id', checkAuth, UserController.update);
 app.post('/register', registerValidation, UserController.register);
 
-// ---------- Directions ----------
+// Направления
 app.get('/directions', DirectionController.getAll);
 app.post('/directions', direction, DirectionController.create);
 
-// ---------- Courses ----------
+// Курсы
 app.get('/courses', CourseController.getAll);
 app.get('/courses/:id', CourseController.getOne);
 app.post('/courses', course, CourseController.create);
 app.delete('/courses/:id', CourseController.remove);
 app.patch('/courses/:id', CourseController.update);
 
-// ---------- Applications ----------
+// Заявки
 app.post('/applications', checkAuth, applicationController.create);
 app.get('/applications/user/:userId', checkAuth, applicationController.getUserApplications);
 app.get('/applications', checkAuth, isAdmin, applicationController.getAll);
 app.patch('/applications/:id/status', checkAuth, isAdmin, applicationController.updateStatus);
 app.delete('/applications/:id', checkAuth, isAdmin, applicationController.remove);
 
-// ---------- Start ----------
-app.listen("3001", () => {
-    console.log(`Сервер запущен на порту ${3001}`);
+// ----------- React SPA Static ----------- 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const clientBuildPath = path.join(__dirname, '..', 'dist'); // dist находится рядом с backend
+
+app.use(express.static(clientBuildPath));
+
+// Fallback для React Router
+app.get('*any', (req, res) => {
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
+});
+
+// ----------- Запуск сервера ----------- 
+app.listen(3001, () => {
+  console.log('🚀 Сервер запущен на порту 3001');
 });
