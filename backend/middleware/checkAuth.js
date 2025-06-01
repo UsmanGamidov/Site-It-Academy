@@ -11,7 +11,7 @@ const checkAuth = async (req, res, next) => {
             return res.status(403).json({ message: 'Нет доступа' });
         }
 
-        const decoded = jwt.verify(token, 'yourSecretKey');
+        const decoded = jwt.verify(token, 'secret123');
         req.userId = decoded._id;
 
         const user = await UserModel.findById(req.userId);

@@ -1,0 +1,106 @@
+.body_home h1 {
+    text-align: center;
+}
+
+.application-grid {
+  display: grid;
+  gap: 20px; 
+  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.application-card {
+  background-color: rgba(0, 0, 0, 0.07);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 16px;
+  transition: transform 0.2s;
+}
+
+.application-card:hover {
+  transform: scale(1.02);
+}
+
+.application-card h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #2a2a2a;
+}
+
+.application-card p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.status {
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.status.Ожидает {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.Принято {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.Отказ {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.application-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* по умолчанию 1 в строку */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.application-card select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 14px;
+  margin-top: 6px;
+  transition: border 0.2s;
+}
+
+.application-card select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.application-card label {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+
+@media (min-width: 600px) {
+  .application-grid {
+    grid-template-columns: repeat(2, 1fr); /* от 600px — 2 в строку */
+  }
+}
+
+@media (min-width: 900px) {
+  .application-grid {
+    grid-template-columns: repeat(3, 1fr); /* от 900px — 3 в строку */
+  }
+}
+
+@media (min-width: 1200px) {
+  .application-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+

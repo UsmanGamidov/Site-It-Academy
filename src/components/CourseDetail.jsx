@@ -42,16 +42,25 @@ export default function CourseDetail() {
         });
         const { firstName, middleName, lastName, email, phone } =
           profileRes.data;
-        let fullNameUser = lastName + " " + firstName + " " + middleName;
+        let fullNameUser = `${lastName} ${firstName} ${middleName}`;
         setForm({
           fullName: fullNameUser || "",
           email: email || "",
           phone: phone || "",
+          message: "",
         });
       }
     } catch (err) {
       console.error("Ошибка загрузки профиля:", err);
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -100,7 +109,7 @@ export default function CourseDetail() {
     const token = localStorage.getItem("authToken");
 
     if (token) {
-      await fetchProfile(); // ПОДГРУЖАЕМ ДАННЫЕ ПРОФИЛЯ перед открытием модалки
+      await fetchProfile();
       setShowModal(true);
     } else {
       navigate("/login", { state: { redirectAfterLogin: `/course/${id}` } });
@@ -136,6 +145,7 @@ export default function CourseDetail() {
                 type="text"
                 name="fullName"
                 value={form.fullName}
+                onChange={handleChange}
                 placeholder="Ваше ФИО"
                 required
               />
@@ -143,6 +153,7 @@ export default function CourseDetail() {
                 type="email"
                 name="email"
                 value={form.email}
+                onChange={handleChange}
                 placeholder="Ваш Email"
                 required
               />
@@ -150,6 +161,7 @@ export default function CourseDetail() {
                 type="tel"
                 name="phone"
                 value={form.phone}
+                onChange={handleChange}
                 placeholder="Ваш номер телефона"
                 required
               />
@@ -157,7 +169,7 @@ export default function CourseDetail() {
                 type="text"
                 name="message"
                 value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                onChange={handleChange}
                 placeholder="Комментарий"
                 required
               />

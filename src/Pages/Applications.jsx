@@ -1,82 +1,105 @@
-import { useEffect, useState } from 'react';
-import api from '../axios';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import api from "../axios";
+import "../styles/applications.css";
 
-export default function Favorites() {
-  const [favorites, setFavorites] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-  const token = localStorage.getItem('authToken');
+export default function MyApplications() {
+  const [applications, setApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("authToken");
+  const userId = localStorage.getItem("userId");
+  const role = localStorage.getItem("role"); // или из профиля, если не сохранял
+  const isAdmin = role === "admin";
 
-  const fetchFavorites = async () => {
+  const fetchApplications = async () => {
     try {
-      const res = await api.get('/favorites', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setFavorites(res.data);
+      const res = await api.get(
+        isAdmin ? "/applications" : `/applications/user/${userId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setApplications(res.data);
     } catch (err) {
-      console.error('Ошибка загрузки избранных', err);
+      console.error("Ошибка загрузки заявок:", err);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
+    }
+  };
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      await api.patch(
+        `/applications/${id}/status`,
+        { status: newStatus },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      fetchApplications(); // обновить после изменения
+    } catch (err) {
+      console.error("Не удалось обновить статус:", err);
     }
   };
 
   useEffect(() => {
-    if (token) {
-      fetchFavorites();
-    } else {
-      setIsLoading(false);
-    }
-  }, [token]);
+    if (token && userId) fetchApplications();
+  }, [token, userId]);
 
-  const handleRemoveFavorite = async (courseId) => {
-    try {
-      await api.post(`/favorites/${courseId}`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      fetchFavorites(); // Обновить список после удаления
-    } catch (err) {
-      console.error('Ошибка удаления из избранных', err);
-    }
-  };
-
-  if (isLoading) return <div className="body_home loading">Загрузка...</div>;
-
-  if (!token) return <div className="body_home">Пожалуйста, войдите в аккаунт для просмотра оставленных аккаунт.</div>;
+  if (loading) return <div className="body_home loading">Загрузка...</div>;
 
   return (
     <div className="body_home">
-      <h1>Оставленные заявки</h1>
-      <div className="profession-cards-container">
-        {favorites.length > 0 ? (
-          favorites.map((course, index) => (
-            <div
-              key={course._id}
-              className={`profession-card color-${index % 6}`}
-              style={{ cursor: 'pointer', position: 'relative' }}
-              onClick={() => navigate(`/course/${course._id}`)}
-            >
-              <div
-                className="favorite-icon"
-                style={{ position: 'absolute', top: 10, right: 10 }}
-                onClick={(e) => handleRemoveFavorite(course._id, e)}
-              >
-                <FaHeart color="red" size={24} />
+      <h1>Мои заявки</h1>
+      {applications.length === 0 ? (
+        <p>Вы ещё не оставили ни одной заявки.</p>
+      ) : (
+        <div className="application-grid">
+          {applications.map((app) => {
+            const [courseTitleFromMsg, messageText] =
+              app.message?.split(/\.(.+)/) || [];
+
+            return (
+              <div key={app._id} className="application-card">
+                <h3>{app.courseId?.title || courseTitleFromMsg || "Курс"}</h3>
+                <p>
+                  <strong>ФИО:</strong> {app.fullName}
+                </p>
+                <p>
+                  <strong>Email:</strong> {app.email}
+                </p>
+                <p>
+                  <strong>Телефон:</strong> {app.phone}
+                </p>
+                {messageText && (
+                  <p>
+                    <strong>Комментарий:</strong> {messageText.trim()}
+                  </p>
+                )}
+                <p>
+                  <strong>Статус:</strong>
+                  <span className={`status ${app.status || "Ожидает"}`}>
+                    {app.status || "Ожидает"}
+                  </span>
+                </p>
+                {isAdmin && (
+                  <div style={{ marginTop: "10px" }}>
+                    <label>
+                      Изменить статус:
+                      <select
+                        value={app.status || "Ожидает"}
+                        onChange={(e) =>
+                          handleStatusChange(app._id, e.target.value)
+                        }
+                      >
+                        <option value="Ожидает">Ожидает</option>
+                        <option value="Одобрено">Одобрено</option>
+                        <option value="Отклонено">Отклонено</option>
+                      </select>
+                    </label>
+                  </div>
+                )}
               </div>
-              <div className="card-header">
-                {course.popular && <span className="popular-badge">Популярное</span>}
-              </div>
-              <div className="card-header">
-                <h3 className="card-title">{course.title}</h3>
-                <img src={course.imageUrl} width="80px" alt={course.title} />
-              </div>
-              <div className="card-duration">{course.courseTime} месяцев</div>
-            </div>
-          ))
-        ) : (
-          <div className="no-results">Вы ещё не добавили курсы в желаемые ❤️</div>
-        )}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

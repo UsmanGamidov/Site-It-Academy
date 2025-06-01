@@ -14,33 +14,26 @@ const UserSchema = new mongoose.Schema(
     lastName: {
       type: String,
       default: "",
-      required: false,
     },
     middleName: {
       type: String,
       default: "",
-      required: false,
     },
     birthDate: {
       type: Date,
-      required: false,
     },
     gender: {
       type: String,
       default: "male",
-      required: false,
     },
     phone: {
       type: String,
-      required: false,
     },
     country: {
       type: String,
-      required: false,
     },
     city: {
       type: String,
-      required: false,
     },
     email: {
       type: String,

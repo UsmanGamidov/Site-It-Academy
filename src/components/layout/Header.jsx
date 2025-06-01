@@ -58,10 +58,10 @@ const Header = () => {
     { name: 'Контакты', path: '/#contacts', hash: true },
   ];
   
-  if (isLoggedIn) {
-    navItems.push({ name: 'Избранные', path: '/favorites' });
-    navItems.push({ name: 'Заявки', path: '/applications' });
-  }
+  // if (isLoggedIn) {
+  //   navItems.push({ name: 'Избранные', path: '/favorites' });
+  //   navItems.push({ name: 'Заявки', path: '/applications' });
+  // }
   
 
   return (
@@ -112,6 +112,7 @@ const Header = () => {
             <div className="logout-dropdown">
               <button onClick={() => { navigate(`/profile/${userId}`) }} className="profile-btn">Профиль</button>
               <button onClick={() => { navigate(`/favorites`) }} className="profile-btn">Избранные</button>
+              <button onClick={() => { navigate(`/applications`) }} className="profile-btn">Заявки</button>
               <button onClick={handleLogout} className="logout-btn">Выйти</button>
             </div>
           </div>

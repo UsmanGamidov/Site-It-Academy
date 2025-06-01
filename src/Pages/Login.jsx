@@ -58,6 +58,7 @@ export default function Login() {
             localStorage.setItem('authToken', data.token);
             localStorage.setItem('userId', data._id);
             localStorage.setItem('userAvatar', (data.avatarUrl) ? data.avatarUrl : false);
+            localStorage.setItem('role', data.role);
 
             const redirectPath = location.state?.redirectAfterLogin || '/';
             navigate(redirectPath);
