@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import api from "../axios";
+import eyeIcon from "../assets/eye.png";
+import hideIcon from "../assets/hide.png";
 
 import "../styles/login.css";
 
@@ -109,12 +111,14 @@ export default function Login() {
               >
                 <img
                   width="20px"
-                  src={showPassword ? "hide.png" : "eye.png"}
+                  src={showPassword ? hideIcon : eyeIcon}
                   alt="toggle visibility"
                 />
               </span>
             </div>
-            {errors.password && <span className="error-text">{errors.password}</span>}
+            {errors.password && (
+              <span className="error-text">{errors.password}</span>
+            )}
           </div>
 
           <div className="forgot-password">
