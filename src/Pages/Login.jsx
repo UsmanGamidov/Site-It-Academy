@@ -109,7 +109,7 @@ export default function Login() {
               >
                 <img
                   width="20px"
-                  src={showPassword ? "hide.png" : "eye.png"}
+                  src={showPassword ? "/hide.png" : "/eye.png"}
                   alt="toggle visibility"
                 />
               </span>
