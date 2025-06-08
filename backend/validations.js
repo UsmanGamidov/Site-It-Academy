@@ -1,30 +1,27 @@
-import { body } from 'express-validator'
-
+import { body } from "express-validator";
 
 export const loginValidation = [
-    body('email').isEmail(),
-    body('password').isLength({min: 5}),
-]
+  body("email").isEmail(),
+  body("password").isLength({ min: 5 }),
+];
 
 export const registerValidation = [
-    body('firstName').isLength({min: 3}),
-    body('email').isEmail(),
-    body('password').isLength({min: 6}),
-    body('avatarUrl').optional().isURL(),
-]
+  body("firstName").isLength({ min: 3 }).withMessage("Минимум 3 символа"),
+  body("email").isEmail().withMessage("Некорректный email"),
+  body("password").isLength({ min: 6 }).withMessage("Минимум 6 символов"),
+];
 
 export const direction = [
-    body('title').isLength({min: 5}).isString(),
-    body('tags').isLength().isString(),
-]
+  body("title").isString().isLength({ min: 5 }),
+  body("tags").isString().notEmpty(), // или .isLength({ min: 1 })
+];
 
 export const course = [
-    body('title'),
-    body('description'),
-    body('courseTime'),
-    body('grade'),
-    body('popular'),
-    body('popular'),
-    body('tags'),
-    body('imageUrl'),
-]
+  body("title").isString().notEmpty(),
+  body("description").isString().notEmpty(),
+  body("courseTime").notEmpty(),
+  body("grade").isNumeric(),
+  body("popular").isBoolean(),
+  body("tags").isArray(), // или isString() если это строка
+  body("imageUrl").isURL().optional(),
+];

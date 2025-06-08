@@ -39,6 +39,7 @@ export default function MyApplications() {
 
   useEffect(() => {
     if (token && userId) fetchApplications();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, userId]);
 
   if (loading) return <div className="body_home loading">Загрузка...</div>;

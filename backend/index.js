@@ -18,7 +18,7 @@ const app = express();
 
 // Подключение к MongoDB
 mongoose
-  .connect('mongodb+srv://admin:1234@cluster0.mfwiazl.mongodb.net/kyrsovay?retryWrites=true&w=majority&appName=Cluster0')
+  .connect('mongodb+srv://admin:17osma17@cluster0.mfwiazl.mongodb.net/kyrsovay?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => console.log('✅ DB OK'))
   .catch((error) => console.log('❌ DB error', error));
 
@@ -33,6 +33,11 @@ app.post('/favorites/:courseId', checkAuth, Favorites.create_or_delete);
 
 // Email
 app.post('/api/send-email', sendMailController.sendMail);
+app.post('/api/send-code', sendMailController.sendCode);
+app.post('/api/verify-code', sendMailController.verifyCode);
+app.post('/api/reset-password', sendMailController.resetPassword);
+app.post('/api/check-email', sendMailController.checkEmail);
+
 
 // Auth
 app.post('/login', loginValidation, UserController.login);
