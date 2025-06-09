@@ -181,9 +181,10 @@ export default function Login() {
                         await api.post("/api/check-email", {
                           email: resetEmail,
                         });
-                        await api.post("/api/send-code", {
+                        await api.post("/api/send-code-reset", {
                           email: resetEmail,
                         });
+
                         setStep(2);
                       } catch (err) {
                         if (err.response?.status === 404) {

@@ -56,7 +56,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      await api.post("/api/send-code", { email: formData.email });
+      await api.post("/api/send-code-register", { email: formData.email });
       setShowCodeModal(true);
     } catch (err) {
       console.error("Ошибка при отправке кода:", err);

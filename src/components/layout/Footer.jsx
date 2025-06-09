@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <footer className="footer">
             <div className="footer-container">
-fill
+
                 <div className="footer-section">
                     <h4>IT-ACADEMY</h4>
                     <p>Образовательная платформа для всех, кто хочет учиться и развиваться.</p>

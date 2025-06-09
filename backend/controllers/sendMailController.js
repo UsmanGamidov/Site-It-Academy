@@ -18,43 +18,80 @@ export const checkEmail = async (req, res) => {
 };
 
 // Отправка кода на email
-export const sendCode = async (req, res) => {
-  try {
-    const { email } = req.body;
+// 📦 Отправка кода для регистрации
+export const sendCodeRegister = async (req, res) => {
+  const { email } = req.body;
 
-    const user = await UserModel.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "Пользователь с таким email не найден" });
-    }
-
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-
-    await VerificationCodeModel.findOneAndUpdate(
-      { email },
-      { code, createdAt: new Date() },
-      { upsert: true, new: true }
-    );
-
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "osmangamidov026@gmail.com",
-        pass: "jkra cjsu njhk hcjl",
-      },
-    });
-
-    await transporter.sendMail({
-      from: '"IT Academy" <osmangamidov026@gmail.com>',
-      to: email,
-      subject: "Код подтверждения",
-      text: `Ваш код подтверждения: ${code}`,
-    });
-
-    res.json({ message: "Код отправлен на email" });
-  } catch (err) {
-    console.error("Ошибка при отправке кода:", err);
-    res.status(500).json({ message: "Ошибка при отправке кода" });
+  // ❌ Проверка: если email уже есть — ошибка
+  const existingUser = await UserModel.findOne({ email });
+  if (existingUser) {
+    return res
+      .status(400)
+      .json({ message: "Пользователь с таким email уже существует" });
   }
+
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+  await VerificationCodeModel.findOneAndUpdate(
+    { email },
+    { code, createdAt: new Date() },
+    { upsert: true, new: true }
+  );
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "osmangamidov026@gmail.com",
+      pass: "jkra cjsu njhk hcjl",
+    },
+  });
+
+  await transporter.sendMail({
+    from: '"IT Academy" <osmangamidov026@gmail.com>',
+    to: email,
+    subject: "Код подтверждения (регистрация)",
+    text: `Ваш код подтверждения: ${code}`,
+  });
+
+  res.json({ message: "Код отправлен на email" });
+};
+
+// 📦 Отправка кода для сброса пароля
+export const sendCodeReset = async (req, res) => {
+  const { email } = req.body;
+
+  // ✅ Проверка: если пользователя нет — ошибка
+  const user = await UserModel.findOne({ email });
+  if (!user) {
+    return res
+      .status(404)
+      .json({ message: "Пользователь с таким email не найден" });
+  }
+
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+  await VerificationCodeModel.findOneAndUpdate(
+    { email },
+    { code, createdAt: new Date() },
+    { upsert: true, new: true }
+  );
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "osmangamidov026@gmail.com",
+      pass: "jkra cjsu njhk hcjl",
+    },
+  });
+
+  await transporter.sendMail({
+    from: '"IT Academy" <osmangamidov026@gmail.com>',
+    to: email,
+    subject: "Код подтверждения (сброс пароля)",
+    text: `Ваш код подтверждения: ${code}`,
+  });
+
+  res.json({ message: "Код отправлен на email" });
 };
 
 // Проверка кода
